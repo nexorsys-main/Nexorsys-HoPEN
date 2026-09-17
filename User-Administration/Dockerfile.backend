@@ -1,0 +1,24 @@
+# Backend Dockerfile
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+WORKDIR /app
+RUN apt-get update && apt-get install -y libldap-2.5-0 && rm -rf /var/lib/apt/lists/*
+EXPOSE 5000
+EXPOSE 7000
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+COPY ["backend/src/Nexorsys.Identity.Core/Nexorsys.Identity.Core.csproj", "backend/src/Nexorsys.Identity.Core/"]
+COPY ["backend/src/Nexorsys.Identity.Infrastructure/Nexorsys.Identity.Infrastructure.csproj", "backend/src/Nexorsys.Identity.Infrastructure/"]
+COPY ["backend/src/Nexorsys.Identity.API/Nexorsys.Identity.API.csproj", "backend/src/Nexorsys.Identity.API/"]
+RUN dotnet restore "backend/src/Nexorsys.Identity.API/Nexorsys.Identity.API.csproj"
+COPY . .
+WORKDIR "/src/backend/src/Nexorsys.Identity.API"
+RUN dotnet build "Nexorsys.Identity.API.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "Nexorsys.Identity.API.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "Nexorsys.Identity.API.dll"]

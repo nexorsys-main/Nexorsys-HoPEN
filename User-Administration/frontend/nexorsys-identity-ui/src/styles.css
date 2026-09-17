@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@theme {
+  --color-slate-950: #020617;
+  --color-slate-900: #0f172a;
+  --color-slate-800: #1e293b;
+  --color-slate-700: #334155;
+  --color-slate-500: #64748b;
+  --color-slate-400: #94a3b8;
+  --color-slate-100: #f1f5f9;
+  --color-emerald-600: #059669;
+  --color-emerald-500: #10b981;
+}
+
+@utility glass-card {
+  background-color: rgb(255 255 255 / 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgb(226 232 240);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow:
+    0 4px 6px -1px rgb(0 0 0 / 0.05),
+    0 2px 4px -2px rgb(0 0 0 / 0.05);
+}
+
+@utility btn-primary {
+  @apply bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg transition-all duration-200 font-medium;
+}
+
+@utility btn-secondary {
+  @apply bg-slate-100 hover:bg-slate-200 text-slate-800 px-4 py-2 rounded-lg transition-all duration-200 font-medium;
+}
+
+@utility btn-danger {
+  @apply bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-lg transition-all duration-200 font-medium shadow-lg shadow-red-500/10;
+}
+
+@utility stat-card {
+  @apply glass-card flex flex-col items-start gap-2 border-l-4 border-l-emerald-500;
+}
+
+@utility form-input {
+  @apply bg-white border border-slate-300 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all;
+}
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 font-sans antialiased;
+  }
+}
+
+@utility animate-pulse-subtle {
+  animation: pulse-subtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-subtle {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.02);
+  }
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vision & Objectifs - NexorSys Identity + Kiosk</title>
+    <style>
+        :root {
+            --primary: #004d40;
+            --secondary: #26a69a;
+            --bg: #ffffff;
+            --surface: #f1f5f9;
+            --text: #1e293b;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        .hero {
+            background: var(--primary);
+            color: white;
+            padding: 60px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        h1 { margin: 0; font-size: 2.2rem; }
+        .section { margin-bottom: 40px; }
+        h2 { color: var(--primary); border-bottom: 2px solid var(--secondary); padding-bottom: 10px; }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .feature-item {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+        .quote {
+            font-style: italic;
+            color: var(--secondary);
+            font-size: 1.1rem;
+            text-align: center;
+            margin: 40px 0;
+            padding: 20px;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+        <div class="hero">
+            <h1>Vision Stratégique : NexorSys Identity + Kiosk</h1>
+            <p style="opacity: 0.9;">1.5.2 Commercial Release — IAM & IAM Kiosk authentifié par Agent Windows, avec intégration Vault chiffrée AES-256-GCM.</p>
+        </div>
+
+    <div class="section">
+        <h2>Pourquoi ce projet ?</h2>
+        <p>En milieu hospitalier, le partage des postes de travail est une source majeure de failles de sécurité et de perte de temps. La Suite Pinède a été conçue pour transformer cette contrainte en un levier d'efficacité.</p>
+        <div class="quote">
+            "Offrir aux soignants une identité numérique qui les suit partout, sécurisée par un simple geste."
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Les Objectifs Clés</h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <strong>Sécurisation Totale</strong>
+                <p>Élimination des sessions "fantômes" et protection absolue des données patients (RGPD/HDS).</p>
+            </div>
+            <div class="feature-item">
+                <strong>Conformité HOP'EN</strong>
+                <p>Alignement avec les standards nationaux de l'Agence du Numérique en Santé.</p>
+            </div>
+            <div class="feature-item">
+                <strong>Efficience Médicale</strong>
+                <p>Réduction du temps de connexion de 45 secondes à 3 secondes grâce au Tap-To-Login.</p>
+            </div>
+            <div class="feature-item">
+                <strong>Gouvernance IT</strong>
+                <p>Contrôle centralisé des accès applicatifs pour la DSI.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Cas d'Usage</h2>
+        <ul>
+            <li><strong>Unité de Soins</strong> : L'infirmier déverrouille son chariot de soins d'un coup de badge sans taper d'identifiant complexe.</li>
+            <li><strong>Consultation</strong> : Le médecin accède à son environnement métier sécurisé instantanément.</li>
+            <li><strong>DSI</strong> : Activation ou révocation immédiate d'un accès en cas de perte de badge.</li>
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1550 @@
+{
+  "Product": "NexorSys Identity \u002B Kiosk API route inventory",
+  "GeneratedAtUtc": "2026-09-15T18:52:30.6784017+00:00",
+  "ApiAssemblyVersion": "1.5.0.0",
+  "DefaultAuthorizationBoundary": "authenticated-user (explicit AllowAnonymous remains opt-in)",
+  "Endpoints": [
+    {
+      "Controller": "AgentTrustController",
+      "Action": "RegisterApplication",
+      "Methods": [
+        "PUT"
+      ],
+      "Route": "/api/agent-trust/applications/{id:guid}/registration",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "AgentTrustController",
+      "Action": "BindWindowsIdentity",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/agent-trust/windows-identities",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "AgentTrustController",
+      "Action": "RevokeWindowsIdentity",
+      "Methods": [
+        "DELETE"
+      ],
+      "Route": "/api/agent-trust/windows-identities/{id:guid}",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "AgentController",
+      "Action": "ValidateApplicationSession",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/agent/v1/vault-release/application-sessions/validate",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": true,
+      "AdditionalAuthenticationBoundaries": [
+        "AgentCertificateAuthenticationFilter"
+      ]
+    },
+    {
+      "Controller": "AgentController",
+      "Action": "CreateGrant",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/agent/v1/vault-release/grants",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": true,
+      "AdditionalAuthenticationBoundaries": [
+        "AgentCertificateAuthenticationFilter"
+      ]
+    },
+    {
+      "Controller": "AgentController",
+      "Action": "Redeem",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/agent/v1/vault-release/redeem",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": true,
+      "AdditionalAuthenticationBoundaries": [
+        "AgentCertificateAuthenticationFilter"
+      ]
+    },
+    {
+      "Controller": "AgentController",
+      "Action": "BindWindowsSession",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/agent/v1/vault-release/windows-sessions/bind",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": true,
+      "AdditionalAuthenticationBoundaries": [
+        "AgentCertificateAuthenticationFilter"
+      ]
+    },
+    {
+      "Controller": "AgentController",
+      "Action": "EndWindowsSession",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/agent/v1/vault-release/windows-sessions/end",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": true,
+      "AdditionalAuthenticationBoundaries": [
+        "AgentCertificateAuthenticationFilter"
+      ]
+    },
+    {
+      "Controller": "AnsDelegationController",
+      "Action": "GetDelegationLogs",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/AnsDelegation/logs",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "RhOrAdmin"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "AnsDelegationController",
+      "Action": "PairNfcWithRpps",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/AnsDelegation/pair-nfc",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "AuditController",
+      "Action": "GetAuditLogs",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/Audit",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "RhOrAdmin"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "AuthController",
+      "Action": "Login",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Auth/login",
+      "AuthenticationBoundary": "allow-anonymous",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": true,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "AuthController",
+      "Action": "Logout",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Auth/logout",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "AuthController",
+      "Action": "Me",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/Auth/me",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "DevicesController",
+      "Action": "RegisterDevice",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Devices",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "DevicesController",
+      "Action": "GetAllDevices",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/Devices/all",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "DevicesController",
+      "Action": "GetDeviceStats",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/Devices/stats",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "DevicesController",
+      "Action": "GetUserDevices",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/Devices/user/{userId}",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "DevicesController",
+      "Action": "DeleteDevice",
+      "Methods": [
+        "DELETE"
+      ],
+      "Route": "/api/Devices/{deviceId}",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "DevicesController",
+      "Action": "CertifyDevice",
+      "Methods": [
+        "PUT"
+      ],
+      "Route": "/api/Devices/{deviceId}/certify",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "DevicesController",
+      "Action": "UpdateDeviceStatus",
+      "Methods": [
+        "PUT"
+      ],
+      "Route": "/api/Devices/{deviceId}/status",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "FederationController",
+      "Action": "EcpsCallback",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/federation/callback/ecps",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "FederationController",
+      "Action": "PsiCallback",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/federation/callback/psi",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "FederationController",
+      "Action": "GetActiveProviders",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/federation/providers",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "FleetController",
+      "Action": "Heartbeat",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/fleet/heartbeat",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": true,
+      "AdditionalAuthenticationBoundaries": [
+        "ApiKeyAuthAttribute"
+      ]
+    },
+    {
+      "Controller": "FleetController",
+      "Action": "GetFleetWorkstations",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/fleet/workstations",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": [
+        "ApiKeyAuthAttribute"
+      ]
+    },
+    {
+      "Controller": "FleetController",
+      "Action": "ToggleWorkstationTrust",
+      "Methods": [
+        "PUT"
+      ],
+      "Route": "/api/fleet/workstations/{id}/trust",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": [
+        "ApiKeyAuthAttribute"
+      ]
+    },
+    {
+      "Controller": "HealthController",
+      "Action": "GetStatus",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/Health/status",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "KioskController",
+      "Action": "GetActiveKiosks",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/Kiosk/active",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": [
+        "ApiKeyAuthAttribute"
+      ]
+    },
+    {
+      "Controller": "KioskController",
+      "Action": "StartAppSession",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Kiosk/app-session/start",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": true,
+      "AdditionalAuthenticationBoundaries": [
+        "ApiKeyAuthAttribute"
+      ]
+    },
+    {
+      "Controller": "KioskController",
+      "Action": "StopAppSession",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Kiosk/app-session/stop",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": true,
+      "AdditionalAuthenticationBoundaries": [
+        "ApiKeyAuthAttribute"
+      ]
+    },
+    {
+      "Controller": "KioskController",
+      "Action": "GenerateTempPin",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Kiosk/generate-temp-pin/{userId}",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": [
+        "ApiKeyAuthAttribute"
+      ]
+    },
+    {
+      "Controller": "KioskController",
+      "Action": "Heartbeat",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Kiosk/heartbeat",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": true,
+      "AdditionalAuthenticationBoundaries": [
+        "ApiKeyAuthAttribute"
+      ]
+    },
+    {
+      "Controller": "KioskController",
+      "Action": "Identify",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Kiosk/identify",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": true,
+      "AdditionalAuthenticationBoundaries": [
+        "ApiKeyAuthAttribute"
+      ]
+    },
+    {
+      "Controller": "KioskController",
+      "Action": "IdentifyMie",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Kiosk/identify-mie",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": true,
+      "AdditionalAuthenticationBoundaries": [
+        "ApiKeyAuthAttribute"
+      ]
+    },
+    {
+      "Controller": "KioskController",
+      "Action": "GetReaderStatus",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/Kiosk/reader-status",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": [
+        "ApiKeyAuthAttribute"
+      ]
+    },
+    {
+      "Controller": "KioskController",
+      "Action": "RequestPinReset",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Kiosk/request-pin-reset",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": true,
+      "AdditionalAuthenticationBoundaries": [
+        "ApiKeyAuthAttribute"
+      ]
+    },
+    {
+      "Controller": "KioskController",
+      "Action": "ResetPin",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Kiosk/reset-pin",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": [
+        "ApiKeyAuthAttribute"
+      ]
+    },
+    {
+      "Controller": "KioskController",
+      "Action": "RevokeBadge",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Kiosk/revoke-badge/{userId}",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": [
+        "ApiKeyAuthAttribute"
+      ]
+    },
+    {
+      "Controller": "KioskController",
+      "Action": "EndSession",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Kiosk/session/end",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": true,
+      "AdditionalAuthenticationBoundaries": [
+        "ApiKeyAuthAttribute"
+      ]
+    },
+    {
+      "Controller": "KioskController",
+      "Action": "GetStatus",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/Kiosk/status/{userId}",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": [
+        "ApiKeyAuthAttribute"
+      ]
+    },
+    {
+      "Controller": "KioskController",
+      "Action": "Trace",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Kiosk/trace",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": true,
+      "AdditionalAuthenticationBoundaries": [
+        "ApiKeyAuthAttribute"
+      ]
+    },
+    {
+      "Controller": "KioskController",
+      "Action": "UnlockAccount",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Kiosk/unlock-account/{userId}",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": [
+        "ApiKeyAuthAttribute"
+      ]
+    },
+    {
+      "Controller": "KioskController",
+      "Action": "UpdateBadge",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Kiosk/update-badge",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": [
+        "ApiKeyAuthAttribute"
+      ]
+    },
+    {
+      "Controller": "KioskController",
+      "Action": "ValidatePin",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Kiosk/validate-pin",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": true,
+      "AdditionalAuthenticationBoundaries": [
+        "ApiKeyAuthAttribute"
+      ]
+    },
+    {
+      "Controller": "KioskController",
+      "Action": "ValidateSso",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Kiosk/validate-sso",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": true,
+      "AdditionalAuthenticationBoundaries": [
+        "ApiKeyAuthAttribute"
+      ]
+    },
+    {
+      "Controller": "KioskController",
+      "Action": "GetWelcomeSession",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/Kiosk/welcome-session/{samAccountName}",
+      "AuthenticationBoundary": "custom-auth",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": true,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": [
+        "ApiKeyAuthAttribute"
+      ]
+    },
+    {
+      "Controller": "MonitoringController",
+      "Action": "GetRecentEvents",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/monitoring/events",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "MonitoringController",
+      "Action": "GetStats",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/monitoring/stats",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "NfcManagementController",
+      "Action": "TriggerWriteCuid",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/NfcManagement/write-cuid",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "PinResetController",
+      "Action": "Approve",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/pin-reset/approve/{id}",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "RhOrAdmin"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "PinResetController",
+      "Action": "GetPendingRequests",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/pin-reset/pending",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "RhOrAdmin"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "PinResetController",
+      "Action": "Reject",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/pin-reset/reject/{id}",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "RhOrAdmin"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "PinResetController",
+      "Action": "RequestReset",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/pin-reset/request",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "PolicyController",
+      "Action": "GetPolicies",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/policies",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "PolicyController",
+      "Action": "CreatePolicy",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/policies",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "PolicyController",
+      "Action": "DeletePolicy",
+      "Methods": [
+        "DELETE"
+      ],
+      "Route": "/api/policies/{id}",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "PolicyController",
+      "Action": "UpdatePolicy",
+      "Methods": [
+        "PUT"
+      ],
+      "Route": "/api/policies/{id}",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "SettingsController",
+      "Action": "GetSettings",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/Settings",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "SystemAdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "SettingsController",
+      "Action": "SaveSettings",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Settings",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "SystemAdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "SettingsController",
+      "Action": "ActivateLicense",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Settings/activate-license",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "SystemAdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "SettingsController",
+      "Action": "TestDatabaseConnection",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Settings/test-db",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "SystemAdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "SettingsController",
+      "Action": "TestEmailConnection",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Settings/test-email",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "SystemAdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "SettingsController",
+      "Action": "TestLdapConnection",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Settings/test-ldap",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "SystemAdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "SystemController",
+      "Action": "RunBackup",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/System/backup",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "SystemAdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "SystemController",
+      "Action": "ResetSystem",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/System/reset",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "SystemAdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "SystemController",
+      "Action": "RunRestore",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/System/restore",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "SystemAdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "UsersController",
+      "Action": "GetAll",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/Users",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "RhOrAdmin"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "UsersController",
+      "Action": "CreateLocalUser",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Users",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "UsersController",
+      "Action": "GetById",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/Users/id/{id:guid}",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "RhOrAdmin"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "UsersController",
+      "Action": "GetMyProfile",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/Users/me",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "UsersController",
+      "Action": "UpdateMyProfile",
+      "Methods": [
+        "PATCH"
+      ],
+      "Route": "/api/Users/me",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "UsersController",
+      "Action": "Search",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/Users/search",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "RhOrAdmin"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "UsersController",
+      "Action": "GetStats",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/Users/stats",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "UsersController",
+      "Action": "SyncAllFromAd",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Users/sync/all",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "RhOrAdmin"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "UsersController",
+      "Action": "SyncFromAd",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Users/sync/{samAccountName}",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "RhOrAdmin"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "UsersController",
+      "Action": "UpdateUser",
+      "Methods": [
+        "PUT"
+      ],
+      "Route": "/api/Users/{idOrSamAccountName}",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "RhOrAdmin"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "UsersController",
+      "Action": "DeleteUser",
+      "Methods": [
+        "DELETE"
+      ],
+      "Route": "/api/Users/{id}",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "UsersController",
+      "Action": "GetBySamAccountName",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/Users/{samAccountName}",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "RhOrAdmin"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "VaultController",
+      "Action": "AuthorizeUse",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/vault/{entryId:guid}/authorize-use",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "WindowsAuthController",
+      "Action": "Enroll",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/windows-auth/enroll",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "WindowsAuthController",
+      "Action": "ReEnroll",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/windows-auth/reenroll",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "WindowsAuthController",
+      "Action": "Revoke",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/windows-auth/revoke",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "WindowsAuthController",
+      "Action": "SessionCreated",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/windows-auth/session-created",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "WorkflowController",
+      "Action": "GetAll",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/Workflow",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "RhOrAdmin"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "WorkflowController",
+      "Action": "Create",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/Workflow",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "WorkflowController",
+      "Action": "GetById",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/Workflow/{id}",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "RhOrAdmin"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "WorkflowController",
+      "Action": "UpdateStatus",
+      "Methods": [
+        "PATCH"
+      ],
+      "Route": "/api/Workflow/{id}/status",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "RhOrAdmin"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "WorkstationEnrollmentController",
+      "Action": "Create",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/workstations/enrollment",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "WorkstationEnrollmentController",
+      "Action": "Get",
+      "Methods": [
+        "GET"
+      ],
+      "Route": "/api/workstations/enrollment/{id:guid}",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "WorkstationEnrollmentController",
+      "Action": "ApproveAgentCertificate",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/workstations/enrollment/{id:guid}/agent-certificate/approve",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "WorkstationEnrollmentController",
+      "Action": "ProveAgentCertificate",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/workstations/enrollment/{id:guid}/agent-certificate/prove-possession",
+      "AuthenticationBoundary": "allow-anonymous",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": true,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "WorkstationEnrollmentController",
+      "Action": "Approve",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/workstations/enrollment/{id:guid}/approve",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "WorkstationEnrollmentController",
+      "Action": "Decommission",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/workstations/enrollment/{id:guid}/decommission",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "WorkstationEnrollmentController",
+      "Action": "ProvePossession",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/workstations/enrollment/{id:guid}/prove-possession",
+      "AuthenticationBoundary": "allow-anonymous",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": true,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "WorkstationEnrollmentController",
+      "Action": "Replace",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/workstations/enrollment/{id:guid}/replace/{replacementId:guid}",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    },
+    {
+      "Controller": "WorkstationEnrollmentController",
+      "Action": "Revoke",
+      "Methods": [
+        "POST"
+      ],
+      "Route": "/api/workstations/enrollment/{id:guid}/revoke",
+      "AuthenticationBoundary": "authorize",
+      "Policies": [
+        "AdminOnly"
+      ],
+      "Roles": [],
+      "HasCustomAuthenticationFilter": false,
+      "FrameworkAllowsAnonymous": false,
+      "AdditionalAuthenticationBoundaries": []
+    }
+  ]
+}

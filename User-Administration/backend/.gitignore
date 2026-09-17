@@ -1,0 +1,76 @@
+# .NET Core
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.xml
+
+# Test outputs
+TestResults/
+
+# Visual Studio
+*.suo
+*.user
+*.userosscache
+*.vssscc
+*.vspscc
+
+# Rider
+.idea/
+*.ipr
+*.iws
+
+# Logs
+*.log
+*.txt
+
+# Packages
+*.nupkg
+packages/
+
+# MacOS
+.DS_Store
+
+# Linux
+*.so
+*.so.*
+*.dylib
+
+# Coverage
+coverage/
+*.coverage
+*.coveragexml
+
+# SonarQube
+.sonar/
+
+# Code analysis
+**/analysis/
+**/coverage/
+
+# Node.js
+node_modules/
+package-lock.json
+
+# Documentation
+docs/
+
+# Environment
+.env
+.env.local
+.env.*.local
+secrets.json
+
+# Docker
+*.dockerignore
+docker-compose.yml
+docker-compose.*.yml
+
+# Security
+*.pfx
+*.p12
+*.asc
+secrets/
+apikey.txt
+apikey.json

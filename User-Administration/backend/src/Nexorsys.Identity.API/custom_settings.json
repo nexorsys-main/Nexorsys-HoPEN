@@ -1,0 +1,59 @@
+{
+  "ldapUrl": "",
+  "ldapBaseDn": "",
+  "ldapUsername": null,
+  "ldapPassword": null,
+  "managedApps": [
+    {
+      "id": "APP_150E479F486D082F08",
+      "name": "test 1",
+      "path": "https://www.google.com/",
+      "icon": "Monitor",
+      "description": ""
+    },
+    {
+      "id": "APP_ADFECD90F1CA9561B8",
+      "name": "test 2",
+      "path": "https://www.google.com/",
+      "icon": "Monitor",
+      "description": ""
+    },
+    {
+      "id": "APP_9974680417F34E61B7",
+      "name": "test 3",
+      "path": "https://www.google.com/",
+      "icon": "Monitor",
+      "description": ""
+    }
+  ],
+  "cheminEmed": "",
+  "cheminHestia": "",
+  "cheminSigems": "",
+  "cheminBlueKango": "",
+  "maxTentatives": 5,
+  "dureeBlocage": 15,
+  "dureeExpiration": 30,
+  "verrouillageAuto": true,
+  "apiAnsUrl": "",
+  "dbHost": "",
+  "dbPort": "",
+  "dbName": "",
+  "dbUsername": null,
+  "dbPassword": null,
+  "kioskApiKey": null,
+  "kioskUrl": "",
+  "kioskAdminPassword": null,
+  "licenseExpiry": null,
+  "licenseKey": null,
+  "mieNfcEnabled": true,
+  "mieCpsEnabled": true,
+  "mieFidoEnabled": true,
+  "mieCartePsEnabled": true,
+  "miePsiEnabled": true,
+  "smtpHost": "smtp.ionos.fr",
+  "smtpPort": 587,
+  "smtpUsername": null,
+  "smtpPassword": null,
+  "smtpEnableSsl": true,
+  "smtpFromEmail": "no-reply@nexorsys.fr"
+}

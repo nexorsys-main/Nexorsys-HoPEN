@@ -1,0 +1,6 @@
+﻿#pragma once
+#include <initguid.h>
+
+// {8B8A9D9F-7D2C-4A3C-9B6C-5E1B2B3F0D1A}
+DEFINE_GUID(CLSID_NexorsysCredentialProvider, 
+0x8b8a9d9f, 0x7d2c, 0x4a3c, 0x9b, 0x6c, 0x5e, 0x1b, 0x2b, 0x3f, 0xd, 0x1a);

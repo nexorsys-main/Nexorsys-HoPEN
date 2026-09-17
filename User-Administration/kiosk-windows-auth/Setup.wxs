@@ -1,0 +1,22 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <!-- This package installs the Credential Provider only. The separate legacy WPF app is excluded. -->
+  <Package Name="NexorSys Identity Credential Provider" Language="1033" Version="1.0.0.0" Manufacturer="NexorSys" UpgradeCode="A1B2C3D4-E5F6-4789-9ABC-DEF012345678" InstallerVersion="200" Scope="perMachine">
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+    <Feature Id="ProductFeature" Title="NexorSys Identity Credential Provider" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+  </Package>
+  <Fragment>
+    <StandardDirectory Id="System64Folder" />
+    <ComponentGroup Id="ProductComponents" Directory="System64Folder">
+      <Component Id="CredentialProviderDLL" Guid="B2C3D4E5-F6A7-48B9-9C0D-EF123456789A" Bitness="always64">
+        <File Id="CredentialProviderDLLFile" Name="NexorSysCredentialProvider.dll" Source="$(var.CredentialProviderPath)" KeyPath="yes" />
+        <RegistryValue Root="HKCR" Key="CLSID\{8B8A9D9F-7D2C-4A3C-9B6C-5E1B2B3F0D1A}" Value="NexorSysCredentialProvider" Type="string" Action="write" />
+        <RegistryValue Root="HKCR" Key="CLSID\{8B8A9D9F-7D2C-4A3C-9B6C-5E1B2B3F0D1A}\InprocServer32" Value="[System64Folder]NexorSysCredentialProvider.dll" Type="string" Action="write" />
+        <RegistryValue Root="HKCR" Key="CLSID\{8B8A9D9F-7D2C-4A3C-9B6C-5E1B2B3F0D1A}\InprocServer32" Name="ThreadingModel" Value="Apartment" Type="string" Action="write" />
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\Credential Providers\{8B8A9D9F-7D2C-4A3C-9B6C-5E1B2B3F0D1A}" Value="NexorSysCredentialProvider" Type="string" Action="write" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>

@@ -1,0 +1,318 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suite Clinique Pinède — Présentation Interactive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+    <!-- Navigation -->
+    <nav class="slide-nav" id="slideNav">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">‹</button>
+        <div class="slide-counter"><span id="currentSlide">1</span> / <span id="totalSlides">10</span></div>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">›</button>
+    </nav>
+
+    <!-- SLIDE 1: Title -->
+    <section class="slide active" id="slide-1">
+        <div class="particles" id="particles1"></div>
+        <div class="slide-content title-slide">
+            <div class="logo-badge animate-in">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="url(#grad1)" stroke-width="1.5">
+                    <defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#10b981"/><stop offset="100%" style="stop-color:#06b6d4"/></linearGradient></defs>
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+            </div>
+            <h1 class="hero-title animate-in delay-1">Suite Clinique <span class="gradient-text">Pinède</span></h1>
+            <p class="hero-subtitle animate-in delay-2">Solution Intégrée d'Identity Access Management (IAM)<br>& Sécurisation NFC pour Établissements de Santé</p>
+            <div class="hero-badges animate-in delay-3">
+                <span class="tech-badge">.NET 8</span><span class="tech-badge">React + Vite</span>
+                <span class="tech-badge">WPF / C#</span><span class="tech-badge">React Native</span>
+                <span class="tech-badge">PostgreSQL</span><span class="tech-badge">NFC / PCSC</span>
+            </div>
+            <div class="hero-meta animate-in delay-4">
+                <span>Auteur : <strong>Ali HAMIDY</strong></span>
+                <span class="separator">•</span>
+                <span>Programme <strong>HOP'EN</strong></span>
+                <span class="separator">•</span>
+                <span>Clinique La Pinède</span>
+            </div>
+            <div class="scroll-hint animate-in delay-5">Appuyez sur <kbd>→</kbd> ou cliquez ›</div>
+        </div>
+    </section>
+
+    <!-- SLIDE 2: Architecture Overview -->
+    <section class="slide" id="slide-2">
+        <div class="slide-content">
+            <div class="section-label animate-in">VUE D'ENSEMBLE</div>
+            <h2 class="slide-title animate-in delay-1">Architecture <span class="gradient-text">Interconnectée</span></h2>
+            <p class="slide-desc animate-in delay-2">Trois applications synchronisées formant un écosystème IAM complet</p>
+            <div class="arch-grid animate-in delay-3">
+                <div class="arch-card web">
+                    <div class="arch-icon">🌐</div>
+                    <h3>Pinède Identity Platform</h3>
+                    <p>Dashboard Web DSI</p>
+                    <div class="arch-tech">React · .NET 8 · PostgreSQL</div>
+                    <div class="arch-port">:3000 / :5000</div>
+                </div>
+                <div class="arch-connector">
+                    <div class="connector-line"></div>
+                    <div class="connector-label">JWT + REST API</div>
+                    <div class="connector-line"></div>
+                </div>
+                <div class="arch-card desktop">
+                    <div class="arch-icon">🖥️</div>
+                    <h3>Pinède NFC APP</h3>
+                    <p>Client Kiosque Local</p>
+                    <div class="arch-tech">WPF · C# · PCSC NFC</div>
+                    <div class="arch-port">nexorsysnfc://</div>
+                </div>
+                <div class="arch-connector vertical">
+                    <div class="connector-line"></div>
+                    <div class="connector-label">Expo / HTTP</div>
+                </div>
+                <div class="arch-card mobile">
+                    <div class="arch-icon">📱</div>
+                    <h3>Admin Mobile</h3>
+                    <p>Supervision Terrain</p>
+                    <div class="arch-tech">React Native · Expo</div>
+                    <div class="arch-port">:8081</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 3: Identity Platform Login -->
+    <section class="slide" id="slide-3">
+        <div class="slide-content split-slide">
+            <div class="split-left">
+                <div class="section-label animate-in">PARTIE 1 — IDENTITY PLATFORM</div>
+                <h2 class="slide-title animate-in delay-1">Portail <span class="gradient-text">Sécurisé</span></h2>
+                <p class="slide-desc animate-in delay-2">Authentification via Active Directory (LDAP) avec interface premium en mode sombre, conçue pour réduire la fatigue visuelle des opérateurs DSI.</p>
+                <ul class="feature-list animate-in delay-3">
+                    <li><span class="feat-icon">🔐</span> Authentification LDAP / Active Directory</li>
+                    <li><span class="feat-icon">🎫</span> Jeton JWT sécurisé (8h de validité)</li>
+                    <li><span class="feat-icon">🌙</span> Interface Mode Sombre Premium</li>
+                    <li><span class="feat-icon">📋</span> Journalisation de chaque tentative</li>
+                </ul>
+            </div>
+            <div class="split-right animate-in delay-2">
+                <div class="screenshot-frame">
+                    <div class="frame-dots"><span></span><span></span><span></span></div>
+                    <img src="assets/login_page.png" alt="Login Pinède Identity" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 4: Dashboard -->
+    <section class="slide" id="slide-4">
+        <div class="slide-content split-slide reverse">
+            <div class="split-left animate-in delay-2">
+                <div class="screenshot-frame large">
+                    <div class="frame-dots"><span></span><span></span><span></span></div>
+                    <img src="assets/dashboard.png" alt="Dashboard IAM" loading="lazy">
+                </div>
+            </div>
+            <div class="split-right">
+                <div class="section-label animate-in">TABLEAU DE BORD IAM</div>
+                <h2 class="slide-title animate-in delay-1">Commandement <span class="gradient-text">Central</span></h2>
+                <p class="slide-desc animate-in delay-2">Le cerveau de la solution. Vue temps réel sur l'ensemble du parc sécuritaire.</p>
+                <div class="stats-grid animate-in delay-3">
+                    <div class="stat-card"><div class="stat-value">2</div><div class="stat-label">Utilisateurs Actifs</div></div>
+                    <div class="stat-card accent"><div class="stat-value">15</div><div class="stat-label">Profils Kiosque</div></div>
+                    <div class="stat-card"><div class="stat-value">1</div><div class="stat-label">Demande en attente</div></div>
+                    <div class="stat-card safe"><div class="stat-value">0</div><div class="stat-label">Alertes Sécurité</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 5: Users & Kiosk Hub -->
+    <section class="slide" id="slide-5">
+        <div class="slide-content">
+            <div class="section-label animate-in">GESTION DES IDENTITÉS</div>
+            <h2 class="slide-title animate-in delay-1">Annuaire & <span class="gradient-text">Kiosque Hub</span></h2>
+            <div class="dual-screenshot animate-in delay-2">
+                <div class="screenshot-container">
+                    <div class="screenshot-frame">
+                        <div class="frame-dots"><span></span><span></span><span></span></div>
+                        <img src="assets/users.png" alt="Annuaire Utilisateurs" loading="lazy">
+                    </div>
+                    <h4>Annuaire Centralisé</h4>
+                    <p>Recherche hybride SQL + LDAP avec synchronisation Active Directory</p>
+                </div>
+                <div class="screenshot-container">
+                    <div class="screenshot-frame">
+                        <div class="frame-dots"><span></span><span></span><span></span></div>
+                        <img src="assets/kiosk_hub.png" alt="Kiosque Hub" loading="lazy">
+                    </div>
+                    <h4>Tour de Contrôle NFC</h4>
+                    <p>Gestion des badges, PIN et état sécurité de chaque terminal</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 6: Audit & Compliance -->
+    <section class="slide" id="slide-6">
+        <div class="slide-content split-slide">
+            <div class="split-left">
+                <div class="section-label animate-in">CONFORMITÉ HOP'EN</div>
+                <h2 class="slide-title animate-in delay-1">Audit & <span class="gradient-text">Traçabilité</span></h2>
+                <p class="slide-desc animate-in delay-2">Registre inaltérable des actions administratives et des accès, conforme aux exigences RGPD et HOP'EN.</p>
+                <ul class="feature-list animate-in delay-3">
+                    <li><span class="feat-icon">📊</span> Journalisation exhaustive chronologique</li>
+                    <li><span class="feat-icon">🔎</span> Filtres par action, utilisateur, ressource</li>
+                    <li><span class="feat-icon">🌐</span> Traçabilité IP complète</li>
+                    <li><span class="feat-icon">⚡</span> Insertions SQL raw (bypass ORM jsonb)</li>
+                </ul>
+                <div class="compliance-badges animate-in delay-4">
+                    <span class="comp-badge">RGPD</span><span class="comp-badge">HOP'EN</span><span class="comp-badge">SIH</span>
+                </div>
+            </div>
+            <div class="split-right animate-in delay-2">
+                <div class="screenshot-frame">
+                    <div class="frame-dots"><span></span><span></span><span></span></div>
+                    <img src="assets/audit_logs.png" alt="Audit Logs" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 7: NFC Kiosk App -->
+    <section class="slide" id="slide-7">
+        <div class="slide-content split-slide reverse">
+            <div class="split-left animate-in delay-2">
+                <div class="screenshot-frame rounded">
+                    <img src="assets/nfc_kiosk.png" alt="Kiosque NFC" loading="lazy">
+                </div>
+            </div>
+            <div class="split-right">
+                <div class="section-label animate-in">PARTIE 2 — PINÈDE NFC APP</div>
+                <h2 class="slide-title animate-in delay-1">Le Bouclier <span class="gradient-text">Local</span></h2>
+                <p class="slide-desc animate-in delay-2">Application WPF installée sur les postes biomédicaux. Verrouille totalement Windows et impose une authentification NFC + PIN.</p>
+                <ul class="feature-list animate-in delay-3">
+                    <li><span class="feat-icon">🛡️</span> Verrouillage Zero Trust (plein écran)</li>
+                    <li><span class="feat-icon">💳</span> Double Facteur : Badge NFC + Code PIN</li>
+                    <li><span class="feat-icon">🖥️</span> Smart Desktop — Lanceur dynamique</li>
+                    <li><span class="feat-icon">📡</span> Boucle PCSC sans surcharge RAM</li>
+                    <li><span class="feat-icon">🔌</span> Mode débrayage hors réseau (MockMode)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 8: 2FA Workflow -->
+    <section class="slide" id="slide-8">
+        <div class="slide-content">
+            <div class="section-label animate-in">PARTIE 3 — CONNEXION SÉCURISÉE</div>
+            <h2 class="slide-title animate-in delay-1">La Poignée de Main <span class="gradient-text">Sécuritaire</span></h2>
+            <div class="workflow-timeline animate-in delay-2">
+                <div class="wf-step">
+                    <div class="wf-number">1</div>
+                    <div class="wf-icon">💳</div>
+                    <h4>Badge NFC</h4>
+                    <p>L'agent effleure le lecteur PCSC avec sa carte professionnelle</p>
+                    <div class="wf-tech">UID: A1B2C3D4</div>
+                </div>
+                <div class="wf-arrow">→</div>
+                <div class="wf-step">
+                    <div class="wf-number">2</div>
+                    <div class="wf-icon">🔢</div>
+                    <h4>Code PIN</h4>
+                    <p>Saisie du code secret, effacé immédiatement de la RAM</p>
+                    <div class="wf-tech">SecureBox → Destroy</div>
+                </div>
+                <div class="wf-arrow">→</div>
+                <div class="wf-step">
+                    <div class="wf-number">3</div>
+                    <div class="wf-icon">🔒</div>
+                    <h4>Vérification BCrypt</h4>
+                    <p>POST HTTPS vers Identity Platform. Hash comparé en base Postgres</p>
+                    <div class="wf-tech">BCrypt + PostgreSQL</div>
+                </div>
+                <div class="wf-arrow">→</div>
+                <div class="wf-step">
+                    <div class="wf-number">4</div>
+                    <div class="wf-icon">🎫</div>
+                    <h4>Jeton JWT</h4>
+                    <p>Token signé contenant le périmètre applicatif autorisé</p>
+                    <div class="wf-tech">HMAC-SHA256</div>
+                </div>
+                <div class="wf-arrow">→</div>
+                <div class="wf-step">
+                    <div class="wf-number">5</div>
+                    <div class="wf-icon">✅</div>
+                    <h4>Smart Desktop</h4>
+                    <p>Bureau éphémère avec uniquement les applications autorisées</p>
+                    <div class="wf-tech">Lanceur Dynamique</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 9: Technical Stack -->
+    <section class="slide" id="slide-9">
+        <div class="slide-content">
+            <div class="section-label animate-in">ARCHITECTURE TECHNIQUE</div>
+            <h2 class="slide-title animate-in delay-1">Stack <span class="gradient-text">Technologique</span></h2>
+            <div class="tech-grid animate-in delay-2">
+                <div class="tech-card">
+                    <div class="tech-header backend-h">BACKEND</div>
+                    <ul><li>C# .NET 8 — ASP.NET Core Web API</li><li>Entity Framework Core (EF Core)</li><li>BCrypt.Net-Next (Hashing)</li><li>JWT Authentication (HMAC-SHA256)</li><li>System.DirectoryServices (LDAP v3)</li></ul>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-header frontend-h">FRONTEND</div>
+                    <ul><li>React 18 + TypeScript</li><li>Vite 8.x (Bundler)</li><li>TailwindCSS 3.x (Dark Mode)</li><li>Lucide-React (Iconographie)</li><li>Axios (Requêtes HTTPS)</li></ul>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-header desktop-h">DESKTOP (WPF)</div>
+                    <ul><li>C# / WPF / XAML</li><li>MVVM — CommunityToolkit.Mvvm</li><li>PCSC (Lecteurs NFC ACR122U)</li><li>NavigationService (sans état)</li><li>NLog (Journalisation locale)</li></ul>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-header mobile-h">MOBILE</div>
+                    <ul><li>React Native (Expo SDK 49)</li><li>React Navigation 6.x</li><li>AsyncStorage (Session)</li><li>Lucide-React-Native</li><li>Axios (API Client)</li></ul>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-header db-h">BASE DE DONNÉES</div>
+                    <ul><li>PostgreSQL 14+</li><li>UUID, JSONB, INET types</li><li>ExecuteSqlRawAsync (bypass ORM)</li><li>BCrypt salted hashes</li><li>Indexes optimisés</li></ul>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-header security-h">SÉCURITÉ</div>
+                    <ul><li>2FA : Badge NFC + Code PIN</li><li>Protocole URI nexorsysnfc://</li><li>CORS configuré</li><li>Zero Trust Architecture</li><li>Audit Logs inaltérables</li></ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 10: Closing -->
+    <section class="slide" id="slide-10">
+        <div class="particles" id="particles10"></div>
+        <div class="slide-content title-slide">
+            <div class="closing-icon animate-in">
+                <img src="assets/doctor_happy.png" alt="Doctor" class="closing-img">
+            </div>
+            <h2 class="hero-title animate-in delay-1">Merci de votre <span class="gradient-text">Attention</span></h2>
+            <p class="hero-subtitle animate-in delay-2">Suite Clinique Pinède — Sécuriser l'accès, protéger les patients.</p>
+            <div class="closing-info animate-in delay-3">
+                <div class="info-card"><strong>Ali HAMIDY</strong><br>Architecte & Développeur</div>
+                <div class="info-card"><strong>Clinique La Pinède</strong><br>Programme HOP'EN</div>
+                <div class="info-card"><strong>Innovera</strong><br>Direction Technique</div>
+            </div>
+            <div class="hero-badges animate-in delay-4">
+                <span class="tech-badge">IAM</span><span class="tech-badge">NFC 2FA</span>
+                <span class="tech-badge">RGPD</span><span class="tech-badge">HOP'EN</span>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

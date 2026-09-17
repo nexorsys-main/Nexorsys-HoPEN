@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Briefing Technique - NexorSys Identity + Kiosk</title>
+    <style>
+        :root {
+            --primary: #006064;
+            --secondary: #00897b;
+            --accent: #10b981;
+            --bg: #f8fafc;
+            --text: #0f172a;
+            --light-text: #64748b;
+        }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 20px;
+        }
+        h1 { color: var(--primary); font-size: 2.5rem; margin-bottom: 10px; }
+        h2 { color: var(--secondary); border-left: 5px solid var(--accent); padding-left: 15px; margin-top: 40px; }
+        h3 { color: var(--primary); }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        code {
+            background: #e2e8f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+        .tag {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Briefing Technique : NexorSys Identity + Kiosk (1.5.2)</h1>
+        <p>Dossier de Présentation Technique & Fonctionnelle v1.1</p>
+    </header>
+
+    <section>
+        <h2>1. Architecture Globale</h2>
+        <div class="card">
+            <p>Le système est composé de deux piliers technologiques synchronisés :</p>
+            <ul>
+                <li><strong>Pinède Identity (Web)</strong> : Un backend .NET 8 et un dashboard React assurant la gestion centralisée des identités (IAM).</li>
+                <li><strong>Pinède NFC APP (Desktop)</strong> : Un client WPF .NET 8 local sécurisant les terminaux de soins (Kiosques).</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>2. Pinède Identity Platform</h2>
+        <div class="card">
+            <h3>Noyau Backend API</h3>
+            <p>Le backend agit comme la source de vérité unique (SSOT). Il gère :</p>
+            <ul>
+                <li>Liaison Active Directory via <code>LDAP/LDAPS</code>.</li>
+                <li>Authentification forte 2FA (Badge + PIN).</li>
+                <li>Génération de jetons <code>JWT</code> sécurisés.</li>
+                <li>Journalisation d'audit centralisée en base <code>PostgreSQL</code>.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>3. Pinède NFC APP</h2>
+        <div class="card">
+            <h3>Le Bouclier Local</h3>
+            <p>Application installée sur les chariots de soins et postes d'urgence :</p>
+            <ul>
+                <li><strong>Mode Kiosque</strong> : Verrouille totalement Windows.</li>
+                <li><strong>Lecture NFC</strong> : Intégration matérielle <code>PCSC</code> (Mifare/Desfire).</li>
+                <li><strong>Zero Trust</strong> : Aucune donnée stockée localement ; validation temps réel via API.</li>
+                <li><strong>Smart Launcher</strong> : Bureau restreint n'affichant que les applications autorisées (Hestia, BlueKango, etc.).</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>4. Logiques de Sécurité</h2>
+        <div class="card">
+            <h3>Le Handshake 2FA</h3>
+            <p>1. L'agent passe son badge (Facteur Possession).<br>
+               2. L'agent saisit son PIN (Facteur Connaissance).<br>
+               3. L'API valide le couple via cryptographie <code>BCrypt</code> et renvoie un token JWT.</p>
+        </div>
+    </section>
+
+    <div class="footer">
+        <p>Document généré pour la Clinique La Pinède - Mai 2026</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="Nexorsys.NFC.APP.Vues.EcranAuthentification"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800" 
+             Background="{StaticResource BrushPrimarySage}">
+    <Grid>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Border Style="{StaticResource GlassCard}" Width="450">
+                <StackPanel>
+                    <TextBlock Text="NexorSys" FontSize="32" FontWeight="Bold" Foreground="{StaticResource BrushDeepForest}" HorizontalAlignment="Center" Margin="0,0,0,32"/>
+                    
+                    <TextBlock Text="Badge détecté ✅" Style="{StaticResource HeaderTitle}" FontSize="28" Margin="0,0,0,8"/>
+                    <TextBlock Text="{Binding NomCompletAffiche, StringFormat='Bienvenue, {0}'}" 
+                               FontSize="20" Foreground="{StaticResource BrushClinicalGreen}" 
+                               FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,0,0,40"/>
+                    
+                    <TextBlock Text="Veuillez saisir votre Code PIN :" 
+                               FontSize="14" Foreground="{StaticResource BrushTextDark}" 
+                               FontWeight="SemiBold" HorizontalAlignment="Left" Margin="0,0,0,8"/>
+                    
+                    <PasswordBox Name="MdpBox" Margin="0,0,0,12" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" FontWeight="Bold"/>
+                    
+                    <TextBlock Text="{Binding MessageErreur}" Foreground="#D64545" FontSize="13" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,32"/>
+                    
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="Annuler" Command="{Binding AnnulerCommand}" 
+                                Style="{StaticResource SecondaryButton}" Margin="0,0,8,0"/>
+                        <Button Grid.Column="1" Content="Se connecter" Click="SeConnecter_Click" IsDefault="True"
+                                Style="{StaticResource PrimaryButton}" Margin="8,0,0,0"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+            
+            <TextBlock Text="Lead Architect : Ali HAMIDY" HorizontalAlignment="Center" Margin="0,32,0,0" Foreground="{StaticResource BrushClinicalGreen}" Opacity="0.5" FontSize="12" FontWeight="Bold"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

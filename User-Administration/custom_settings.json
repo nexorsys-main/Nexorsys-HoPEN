@@ -1,0 +1,5 @@
+{
+  "managedApps": [],
+  "Auth": { "MockMode": false },
+  "Security": { "AllowedOrigins": [] }
+}

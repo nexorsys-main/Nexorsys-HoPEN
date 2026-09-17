@@ -1,0 +1,10 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:bal="http://wixtoolset.org/schemas/v4/wxs/bal">
+  <Bundle Name="NexorSys Identity Credential Provider" Version="1.0.0.0" Manufacturer="NexorSys" UpgradeCode="C1D2E3F4-1234-5678-9ABC-DEF012345678">
+    <BootstrapperApplication>
+      <bal:WixStandardBootstrapperApplication LicenseUrl="" Theme="hyperlinkLicense" />
+    </BootstrapperApplication>
+    <Chain>
+      <MsiPackage SourceFile="Setup.msi" />
+    </Chain>
+  </Bundle>
+</Wix>

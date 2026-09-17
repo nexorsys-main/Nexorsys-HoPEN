@@ -1,0 +1,127 @@
+﻿name: NexorSys Identity CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: NexorSys_CI
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+
+    - name: Setup .NET 8
+      uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Setup Node.js
+      uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: frontend/nexorsys-identity-ui/package-lock.json
+
+    - name: Restore backend dependencies
+      run: dotnet restore backend/Nexorsys.Identity.Solution.sln
+
+    - name: Build backend
+      run: dotnet build backend/Nexorsys.Identity.Solution.sln --configuration Release --no-restore
+
+    - name: Verify generated API authorization inventory is current
+      run: dotnet run --configuration Release --no-build --project backend/tools/Nexorsys.RouteInventory/Nexorsys.RouteInventory.csproj -- --check docs/api-route-inventory.json
+
+    - name: Run backend security and PostgreSQL integration tests
+      run: dotnet test backend/tests/Nexorsys.Identity.SecurityTests/Nexorsys.Identity.SecurityTests.csproj --configuration Release --no-restore
+      env:
+        NEXORSYS_TEST_POSTGRES: Host=127.0.0.1;Port=5432;Database=NexorSys_CI;Username=postgres;Password=postgres;Include Error Detail=false
+
+    - name: Install frontend dependencies
+      run: npm ci
+      working-directory: frontend/nexorsys-identity-ui
+
+    - name: Build frontend
+      run: npm run build -- --mode production
+      working-directory: frontend/nexorsys-identity-ui
+      env:
+        CI: false
+
+    - name: Run frontend tests
+      run: npm test -- --run
+      working-directory: frontend/nexorsys-identity-ui
+
+    - name: Audit production frontend dependencies
+      run: npm audit --omit=dev --audit-level=high
+      working-directory: frontend/nexorsys-identity-ui
+
+    - name: Verify clean checkout and reproducible engineering package
+      shell: pwsh
+      run: |
+        $artifactDirectory = Join-Path $env:RUNNER_TEMP 'nexorsys-clean-checkout-release'
+        ./scripts/verify-clean-checkout.ps1 -OutputDirectory $artifactDirectory -Configuration Release
+
+    - name: Upload unsigned engineering package
+      uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba
+      with:
+        name: nexorsys-identity-kiosk-engineering-package
+        path: ${{ runner.temp }}/nexorsys-clean-checkout-release/*.zip
+        if-no-files-found: error
+
+    - name: Publish backend
+      run: dotnet publish backend/src/Nexorsys.Identity.API/Nexorsys.Identity.API.csproj --configuration Release -o ./publish
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba
+      with:
+        name: nexorsys-identity
+        path: |
+          publish/
+          frontend/nexorsys-identity-ui/dist/
+
+  windows-kiosk-tests:
+    name: Windows Agent and Kiosk tests
+    runs-on: windows-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+
+    - name: Reject tracked generated release outputs
+      shell: bash
+      run: |
+        if git ls-files | grep -E '\.(msi|wixpdb|pdb|dll|exe|zip)$'; then
+          echo "Generated release outputs must not be tracked."
+          exit 1
+        fi
+
+    - name: Setup .NET 8
+      uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Run Windows Agent tests
+      run: dotnet test backend/tests/Nexorsys.WindowsAgent.Tests/Nexorsys.WindowsAgent.Tests.csproj --configuration Release
+
+    - name: Run Kiosk launch and trust tests
+      run: dotnet test backend/tests/Nexorsys.Kiosk.Tests/Nexorsys.Kiosk.Tests.csproj --configuration Release

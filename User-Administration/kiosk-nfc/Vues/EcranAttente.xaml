@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="Nexorsys.NFC.APP.Vues.EcranAttente"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="1000"
+             Background="#F7FAFC">
+    <Grid Margin="64">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Horizontal">
+                <Ellipse Width="10" Height="10" Fill="#0FB38A" VerticalAlignment="Center" Margin="0,0,10,0" />
+                <TextBlock Text="POSTE SÉCURISÉ" Foreground="#53657D" FontSize="13" FontWeight="Bold" VerticalAlignment="Center" />
+            </StackPanel>
+            <TextBlock Text="NexorSys Kiosk" Foreground="#172B4D" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right" />
+        </Grid>
+
+        <Grid Grid.Row="1" VerticalAlignment="Center" MaxWidth="900">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.05*" />
+                <ColumnDefinition Width="1.2*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="White" CornerRadius="28" Padding="34" Margin="0,0,28,0"
+                    BorderBrush="#E3EAF2" BorderThickness="1" Effect="{StaticResource MediumShadow}">
+                <StackPanel VerticalAlignment="Center">
+                    <Image Source="/Assets/nexorsys-logo.png"
+                           Height="108" Stretch="Uniform" HorizontalAlignment="Left" />
+                    <Border Height="1" Background="#E8EEF5" Margin="0,28,0,22" />
+                    <TextBlock Text="Accès simple. Sécurité forte." Foreground="#172B4D" FontSize="21" FontWeight="Bold" />
+                    <TextBlock Text="Votre poste est prêt à identifier les professionnels autorisés."
+                               Foreground="#687A92" FontSize="15" TextWrapping="Wrap" Margin="0,10,0,0" />
+                </StackPanel>
+            </Border>
+
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="18,0,0,0">
+                <TextBlock Text="Bienvenue" Foreground="#0FB38A" FontSize="16" FontWeight="Bold" />
+                <TextBlock Text="Présentez votre badge" Foreground="#172B4D" FontSize="38" FontWeight="ExtraBold" Margin="0,8,0,8" />
+                <TextBlock Text="Approchez votre carte du lecteur NFC pour commencer."
+                           Foreground="#53657D" FontSize="18" TextWrapping="Wrap" />
+                <Border Background="#EAF8F4" CornerRadius="18" Padding="20" Margin="0,34,0,20">
+                    <StackPanel Orientation="Horizontal">
+                        <Border Width="42" Height="42" Background="#0FB38A" CornerRadius="21" Margin="0,0,16,0">
+                            <TextBlock Text="✓" Foreground="White" FontSize="24" FontWeight="Bold"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <StackPanel>
+                            <TextBlock Text="Lecteur prêt" Foreground="#17624F" FontSize="16" FontWeight="Bold" />
+                            <TextBlock Text="En attente de lecture NFC" Foreground="#4E806F" FontSize="14" Margin="0,3,0,0" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+                <ProgressBar IsIndeterminate="True" Height="6" Foreground="#0FB38A"
+                             Background="#DCE9E5" BorderThickness="0" />
+                <PasswordBox IsEnabled="False" Height="1" Opacity="0" />
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center">
+            <TextBlock Text="NEXORSYS KIOSK" Foreground="#92A4B8" FontSize="12"
+                       FontWeight="Bold" HorizontalAlignment="Center" />
+            <TextBlock Text="Authentification de poste de travail" Foreground="#A7B5C5"
+                       FontSize="12" Margin="0,4,0,0" HorizontalAlignment="Center" />
+        </StackPanel>
+    </Grid>
+</UserControl>

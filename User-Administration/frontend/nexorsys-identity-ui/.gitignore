@@ -1,0 +1,39 @@
+# Front-end dependencies
+node_modules/
+bower_components/
+
+# Build outputs
+dist/
+build/
+coverage/
+
+# Vite cache
+.vite/
+
+# Environment variables
+.env.local
+.env.*.local
+
+# Log files
+*.log
+npm-debug.log
+
+# OS X
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Icon
+
+# IDE
+.vscode/
+.idea/
+.project
+.settings/
+
+# Optional
+*.vspscc
+*.user
+*.userosscache
+*.sln.docstates

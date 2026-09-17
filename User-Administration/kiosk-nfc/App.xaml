@@ -1,0 +1,27 @@
+﻿<Application x:Class="Nexorsys.NFC.APP.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Nexorsys.NFC.APP"
+             xmlns:vues="clr-namespace:Nexorsys.NFC.APP.Vues"
+             xmlns:vuemodeles="clr-namespace:Nexorsys.NFC.APP.VueModeles">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/DesignSystem.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
+            <DataTemplate DataType="{x:Type vuemodeles:EcranAttenteVueModele}">
+                <vues:EcranAttente />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vuemodeles:EcranAuthentificationVueModele}">
+                <vues:EcranAuthentification />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vuemodeles:EcranAccueilVueModele}">
+                <vues:EcranAccueil />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vuemodeles:EcranErreurVueModele}">
+                <vues:EcranErreur />
+            </DataTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

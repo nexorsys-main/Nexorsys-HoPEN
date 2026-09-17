@@ -1,0 +1,370 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suite Clinique Pinède — L'Histoire</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="story-styles.css">
+</head>
+<body>
+
+<!-- Progress -->
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+<nav class="slide-nav">
+    <button class="nav-btn" onclick="changeSlide(-1)">‹</button>
+    <div class="slide-counter"><span id="cur">1</span>/<span id="tot">12</span></div>
+    <button class="nav-btn" onclick="changeSlide(1)">›</button>
+</nav>
+
+<!-- ====== SLIDE 1 — OPENING ====== -->
+<section class="slide active" id="s1">
+    <div class="particles-bg"></div>
+    <div class="sc center-col">
+        <div class="chapter-num anim">ACTE I</div>
+        <h1 class="mega-title anim d1">Il était une fois...<br><span class="glow">La Clinique La Pinède</span></h1>
+        <p class="story-text anim d2">L'histoire vraie d'une révolution silencieuse dans la sécurité hospitalière.<br>Un défi, trois personnages, une solution.</p>
+        <div class="char-trio anim d3">
+            <div class="char-preview"><img src="assets/nurse_sophie.png" alt="Sophie"><span>Sophie</span><small>Infirmière</small></div>
+            <div class="char-preview"><img src="assets/admin_karim.png" alt="Karim"><span>Karim</span><small>Admin DSI</small></div>
+            <div class="char-preview"><img src="assets/doctor_dupont.png" alt="Dr. Dupont"><span>Dr. Dupont</span><small>Médecin</small></div>
+        </div>
+        <div class="scroll-hint anim d4">Appuyez <kbd>→</kbd> pour commencer l'histoire</div>
+    </div>
+</section>
+
+<!-- ====== SLIDE 2 — THE PROBLEM ====== -->
+<section class="slide" id="s2">
+    <div class="sc split">
+        <div class="split-text">
+            <div class="chapter-num anim">LE PROBLÈME</div>
+            <h2 class="slide-h anim d1"><span class="glow-red">06h45</span> — L'heure du danger</h2>
+            <div class="story-bubble anim d2">
+                <div class="bubble-avatar"><img src="assets/nurse_sophie.png" alt="Sophie"></div>
+                <div class="bubble-content">
+                    <strong>Sophie, infirmière de nuit</strong>
+                    <p>« Je termine mon service. L'ordinateur du poste de soins est resté connecté avec la session de mon collègue... N'importe qui pourrait accéder aux dossiers patients. »</p>
+                </div>
+            </div>
+            <div class="danger-list anim d3">
+                <div class="danger-item"><span class="danger-icon pulse-red">⚠️</span> Sessions partagées non sécurisées</div>
+                <div class="danger-item"><span class="danger-icon pulse-red">⚠️</span> Mots de passe sur Post-it</div>
+                <div class="danger-item"><span class="danger-icon pulse-red">⚠️</span> Aucune traçabilité d'accès</div>
+                <div class="danger-item"><span class="danger-icon pulse-red">⚠️</span> Non-conformité HOP'EN / RGPD</div>
+            </div>
+        </div>
+        <div class="split-visual anim d2">
+            <img src="assets/hospital_scene.png" alt="Hôpital" class="scene-img float-anim">
+            <div class="hacker-overlay">
+                <img src="assets/hacker.png" alt="Intrus" class="hacker-img slide-in-right">
+                <div class="alert-badge blink">INTRUSION ?</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ====== SLIDE 3 — MEET KARIM ====== -->
+<section class="slide" id="s3">
+    <div class="sc split reverse">
+        <div class="split-visual anim d1">
+            <img src="assets/admin_karim.png" alt="Karim" class="char-large bounce-in">
+        </div>
+        <div class="split-text">
+            <div class="chapter-num anim">LE HÉROS</div>
+            <h2 class="slide-h anim d1">Karim, <span class="glow">l'architecte DSI</span></h2>
+            <div class="story-bubble anim d2">
+                <div class="bubble-avatar"><img src="assets/admin_karim.png" alt="Karim"></div>
+                <div class="bubble-content">
+                    <strong>Karim, Administrateur Systèmes</strong>
+                    <p>« J'ai conçu une solution complète : trois applications interconnectées qui sécurisent chaque accès, chaque badge, chaque terminal. Laissez-moi vous montrer... »</p>
+                </div>
+            </div>
+            <div class="skill-tags anim d3">
+                <span class="skill">.NET 8</span><span class="skill">React</span><span class="skill">WPF</span>
+                <span class="skill">PostgreSQL</span><span class="skill">NFC/PCSC</span><span class="skill">JWT</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ====== SLIDE 4 — IDENTITY PLATFORM INTRO ====== -->
+<section class="slide" id="s4">
+    <div class="sc center-col">
+        <div class="chapter-num anim">APPLICATION N°1</div>
+        <h2 class="slide-h anim d1">🌐 Pinède Identity <span class="glow">Platform</span></h2>
+        <p class="story-text anim d2">Le cerveau central — Le Hub de Commandement de la DSI</p>
+        <div class="story-bubble wide anim d3">
+            <div class="bubble-avatar"><img src="assets/admin_karim.png" alt="Karim"></div>
+            <div class="bubble-content">
+                <strong>Karim explique :</strong>
+                <p>« C'est ici que tout se décide. Depuis ce dashboard, je vois chaque utilisateur, chaque badge, chaque tentative d'accès en temps réel. Rien ne m'échappe. »</p>
+            </div>
+        </div>
+        <div class="screenshot-showcase anim d4">
+            <div class="showcase-item">
+                <div class="frame"><div class="dots"><span></span><span></span><span></span></div><img src="assets/login_page.png" alt="Login"></div>
+                <p>Authentification LDAP</p>
+            </div>
+            <div class="showcase-item">
+                <div class="frame"><div class="dots"><span></span><span></span><span></span></div><img src="assets/dashboard.png" alt="Dashboard"></div>
+                <p>Tableau de bord IAM</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ====== SLIDE 5 — USERS & KIOSK ====== -->
+<section class="slide" id="s5">
+    <div class="sc center-col">
+        <div class="chapter-num anim">FONCTIONNALITÉS CLÉS</div>
+        <h2 class="slide-h anim d1">Annuaire & <span class="glow">Kiosque Hub</span></h2>
+        <div class="story-bubble wide anim d2">
+            <div class="bubble-avatar"><img src="assets/admin_karim.png" alt="Karim"></div>
+            <div class="bubble-content">
+                <strong>Karim :</strong>
+                <p>« L'annuaire cherche d'abord en local SQL, puis escalade vers l'Active Directory. Le Kiosque Hub me montre le statut sécurité de chaque agent en un coup d'œil. »</p>
+            </div>
+        </div>
+        <div class="screenshot-showcase anim d3">
+            <div class="showcase-item">
+                <div class="frame"><div class="dots"><span></span><span></span><span></span></div><img src="assets/users.png" alt="Users"></div>
+                <p>Recherche hybride SQL + LDAP</p>
+            </div>
+            <div class="showcase-item">
+                <div class="frame"><div class="dots"><span></span><span></span><span></span></div><img src="assets/kiosk_hub.png" alt="Kiosk"></div>
+                <p>Gestion des badges NFC</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ====== SLIDE 6 — AUDIT ====== -->
+<section class="slide" id="s6">
+    <div class="sc split">
+        <div class="split-text">
+            <div class="chapter-num anim">CONFORMITÉ</div>
+            <h2 class="slide-h anim d1">Audit & <span class="glow">Traçabilité</span></h2>
+            <div class="story-bubble anim d2">
+                <div class="bubble-avatar"><img src="assets/admin_karim.png" alt="Karim"></div>
+                <div class="bubble-content">
+                    <strong>Karim :</strong>
+                    <p>« Chaque action est journalisée. Un badge suspect à 3h du matin ? Je le vois dix secondes plus tard sur cet écran. Conformité HOP'EN, RGPD — tout est tracé. »</p>
+                </div>
+            </div>
+            <div class="compliance-grid anim d3">
+                <div class="comp-card"><div class="comp-icon">🛡️</div><span>RGPD</span></div>
+                <div class="comp-card"><div class="comp-icon">🏥</div><span>HOP'EN</span></div>
+                <div class="comp-card"><div class="comp-icon">📋</div><span>SIH</span></div>
+                <div class="comp-card"><div class="comp-icon">🔒</div><span>BCrypt</span></div>
+            </div>
+        </div>
+        <div class="split-visual anim d2">
+            <div class="frame large"><div class="dots"><span></span><span></span><span></span></div><img src="assets/audit_logs.png" alt="Audit"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ====== SLIDE 7 — NFC APP ====== -->
+<section class="slide" id="s7">
+    <div class="sc split reverse">
+        <div class="split-visual anim d1">
+            <img src="assets/nfc_kiosk.png" alt="Kiosque NFC" class="scene-img float-anim rounded-img">
+        </div>
+        <div class="split-text">
+            <div class="chapter-num anim">APPLICATION N°2</div>
+            <h2 class="slide-h anim d1">🖥️ Pinède NFC <span class="glow">Kiosque</span></h2>
+            <div class="story-bubble anim d2">
+                <div class="bubble-avatar"><img src="assets/nurse_sophie.png" alt="Sophie"></div>
+                <div class="bubble-content">
+                    <strong>Sophie découvre le Kiosque :</strong>
+                    <p>« Quand j'arrive au poste, l'écran est verrouillé. Plus aucun collègue ne peut laisser sa session ouverte. Je passe mon badge, je tape mon code — c'est simple et sûr. »</p>
+                </div>
+            </div>
+            <div class="feature-cards anim d3">
+                <div class="feat-card"><span>🛡️</span> Verrouillage Zero Trust</div>
+                <div class="feat-card"><span>💳</span> Double facteur NFC + PIN</div>
+                <div class="feat-card"><span>🖥️</span> Smart Desktop dynamique</div>
+                <div class="feat-card"><span>🔌</span> Mode hors-ligne résilient</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ====== SLIDE 8 — THE HANDSHAKE ====== -->
+<section class="slide" id="s8">
+    <div class="sc center-col">
+        <div class="chapter-num anim">ACTE II — LA CONNEXION</div>
+        <h2 class="slide-h anim d1">La Poignée de Main <span class="glow">Sécuritaire</span></h2>
+        <p class="story-text anim d2">Comment Sophie accède à ses applications en toute sécurité</p>
+        <div class="handshake-flow anim d3">
+            <div class="flow-char"><img src="assets/nurse_sophie.png" alt="Sophie"><span>Sophie</span></div>
+            <div class="flow-steps">
+                <div class="flow-step"><div class="step-num">1</div><div class="step-icon">💳</div><p>Badge NFC<br><small>UID: A1B2C3D4</small></p></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step"><div class="step-num">2</div><div class="step-icon">🔢</div><p>Code PIN<br><small>Effacé de la RAM</small></p></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step accent"><div class="step-num">3</div><div class="step-icon">🔒</div><p>Vérification<br><small>BCrypt + PostgreSQL</small></p></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step"><div class="step-num">4</div><div class="step-icon">🎫</div><p>Jeton JWT<br><small>HMAC-SHA256</small></p></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step success"><div class="step-num">5</div><div class="step-icon">✅</div><p>Accès<br><small>Applications métier</small></p></div>
+            </div>
+            <div class="flow-char"><img src="assets/dashboard.png" alt="Platform" class="flow-screen"><span>Identity Platform</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- ====== SLIDE 9 — PROTOCOL URI ====== -->
+<section class="slide" id="s9">
+    <div class="sc split">
+        <div class="split-text">
+            <div class="chapter-num anim">LE PONT MAGIQUE</div>
+            <h2 class="slide-h anim d1">Protocole <span class="glow font-mono">nexorsysnfc://</span></h2>
+            <div class="story-bubble anim d2">
+                <div class="bubble-avatar"><img src="assets/admin_karim.png" alt="Karim"></div>
+                <div class="bubble-content">
+                    <strong>Karim, fièrement :</strong>
+                    <p>« J'ai créé un pont impossible : depuis mon navigateur web, je peux lancer l'application Kiosque sur n'importe quel PC de la clinique. Le navigateur n'est pas censé pouvoir faire ça... mais avec le Protocole URI, ça marche ! »</p>
+                </div>
+            </div>
+            <div class="code-block anim d3">
+                <div class="code-header">Registre Windows</div>
+                <pre><code>HKEY_CLASSES_ROOT\nexorsysnfc
+  (Default) = "URL:Pinède NFC Protocol"
+  URL Protocol = ""
+  shell\open\command
+    (Default) = "NexorsysNFC.exe" "%1"</code></pre>
+            </div>
+        </div>
+        <div class="split-visual anim d2">
+            <div class="protocol-demo">
+                <div class="proto-browser">
+                    <div class="proto-bar">🌐 Chrome — Identity Platform</div>
+                    <div class="proto-btn pulse-green">🚀 Lancer Kiosque Bureau</div>
+                </div>
+                <div class="proto-arrow bounce-down">⚡</div>
+                <div class="proto-desktop">
+                    <div class="proto-bar dark">🖥️ Windows — Pinède NFC APP</div>
+                    <div class="proto-status">✅ Application lancée !</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ====== SLIDE 10 — MOBILE ====== -->
+<section class="slide" id="s10">
+    <div class="sc split reverse">
+        <div class="split-visual anim d1">
+            <div class="phone-frame">
+                <div class="phone-notch"></div>
+                <div class="phone-screen"><img src="assets/nurse_nfc.png" alt="Mobile App"></div>
+            </div>
+        </div>
+        <div class="split-text">
+            <div class="chapter-num anim">APPLICATION N°3</div>
+            <h2 class="slide-h anim d1">📱 Admin <span class="glow">Mobile</span></h2>
+            <div class="story-bubble anim d2">
+                <div class="bubble-avatar"><img src="assets/doctor_dupont.png" alt="Dr. Dupont"></div>
+                <div class="bubble-content">
+                    <strong>Dr. Dupont :</strong>
+                    <p>« Même en déplacement, Karim peut superviser toute la sécurité depuis son téléphone. Il m'a montré — il voit mes accès, mes workflows, tout en temps réel. C'est rassurant. »</p>
+                </div>
+            </div>
+            <div class="mobile-features anim d3">
+                <div class="mob-feat"><span>📊</span> Dashboard en temps réel</div>
+                <div class="mob-feat"><span>👥</span> Gestion des utilisateurs</div>
+                <div class="mob-feat"><span>🔔</span> Alertes instantanées</div>
+                <div class="mob-feat"><span>📋</span> Validation des workflows</div>
+            </div>
+            <div class="skill-tags anim d4">
+                <span class="skill">React Native</span><span class="skill">Expo SDK 49</span><span class="skill">AsyncStorage</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ====== SLIDE 11 — TECH STACK ====== -->
+<section class="slide" id="s11">
+    <div class="sc center-col">
+        <div class="chapter-num anim">LES COULISSES</div>
+        <h2 class="slide-h anim d1">Architecture <span class="glow">Technique</span></h2>
+        <div class="tech-wall anim d2">
+            <div class="tw-card"><div class="tw-h be">BACKEND</div><ul><li>C# .NET 8</li><li>ASP.NET Core Web API</li><li>EF Core + Raw SQL</li><li>BCrypt · JWT · LDAP</li></ul></div>
+            <div class="tw-card"><div class="tw-h fe">FRONTEND</div><ul><li>React 18 + TypeScript</li><li>Vite 8.x</li><li>TailwindCSS 3.x</li><li>Axios · Lucide</li></ul></div>
+            <div class="tw-card"><div class="tw-h dk">DESKTOP</div><ul><li>WPF / C# / XAML</li><li>MVVM Pattern</li><li>PCSC NFC Readers</li><li>NLog · HttpClient</li></ul></div>
+            <div class="tw-card"><div class="tw-h mo">MOBILE</div><ul><li>React Native</li><li>Expo SDK 49</li><li>React Navigation 6</li><li>AsyncStorage</li></ul></div>
+            <div class="tw-card"><div class="tw-h db">DATABASE</div><ul><li>PostgreSQL 14+</li><li>UUID · JSONB · INET</li><li>BCrypt Salted Hashes</li><li>Optimized Indexes</li></ul></div>
+            <div class="tw-card"><div class="tw-h sc2">SÉCURITÉ</div><ul><li>2FA NFC + PIN</li><li>URI Protocol</li><li>Zero Trust</li><li>RGPD · HOP'EN</li></ul></div>
+        </div>
+    </div>
+</section>
+
+<!-- ====== SLIDE 12 — HAPPY ENDING ====== -->
+<section class="slide" id="s12">
+    <div class="particles-bg"></div>
+    <div class="sc center-col">
+        <div class="chapter-num anim">ÉPILOGUE</div>
+        <h1 class="mega-title anim d1">Et la clinique fut <span class="glow">sécurisée</span>.</h1>
+        <div class="ending-chars anim d2">
+            <div class="end-char happy-bounce"><img src="assets/nurse_sophie.png" alt="Sophie"><div class="speech-mini">« Plus de sessions ouvertes ! »</div></div>
+            <div class="end-char happy-bounce d1"><img src="assets/admin_karim.png" alt="Karim"><div class="speech-mini">« Tout est sous contrôle. »</div></div>
+            <div class="end-char happy-bounce d2"><img src="assets/doctor_dupont.png" alt="Dr. Dupont"><div class="speech-mini">« Mes patients sont protégés. »</div></div>
+        </div>
+        <div class="credits anim d3">
+            <div class="credit-card"><strong>Auteur</strong><br>Ali HAMIDY</div>
+            <div class="credit-card"><strong>Organisation</strong><br>Clinique La Pinède</div>
+            <div class="credit-card"><strong>Programme</strong><br>HOP'EN National</div>
+        </div>
+        <div class="skill-tags anim d4">
+            <span class="skill">IAM</span><span class="skill">NFC 2FA</span><span class="skill">RGPD</span>
+            <span class="skill">HOP'EN</span><span class="skill">Zero Trust</span>
+        </div>
+        <p class="story-text small anim d5">Fin de l'histoire. Début de la sécurité. 🛡️</p>
+    </div>
+</section>
+
+<script>
+let cur=1; const tot=12;
+document.getElementById('tot').textContent=tot;
+
+function changeSlide(d){goTo(cur+d)}
+function goTo(n){
+    if(n<1||n>tot)return;
+    const o=document.getElementById('s'+cur),nw=document.getElementById('s'+n);
+    if(!o||!nw)return;
+    o.classList.remove('active');
+    o.querySelectorAll('.anim').forEach(e=>e.classList.remove('vis'));
+    cur=n; nw.classList.add('active');
+    document.getElementById('cur').textContent=n;
+    document.getElementById('progressFill').style.width=((n-1)/(tot-1)*100)+'%';
+    setTimeout(()=>{
+        nw.querySelectorAll('.anim').forEach((e,i)=>{
+            const dc=[...e.classList].find(c=>c.startsWith('d'));
+            const delay=dc?parseInt(dc.replace('d',''))*200:0;
+            setTimeout(()=>e.classList.add('vis'),delay);
+        });
+    },120);
+}
+document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();changeSlide(1)}
+    if(e.key==='ArrowLeft'){e.preventDefault();changeSlide(-1)}
+});
+let tx=0;
+document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].screenX});
+document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].screenX;if(Math.abs(d)>60)changeSlide(d>0?1:-1)});
+
+// Init particles
+document.querySelectorAll('.particles-bg').forEach(c=>{
+    for(let i=0;i<35;i++){
+        const p=document.createElement('div');p.className='particle';
+        p.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${Math.random()*4+1}px;height:${Math.random()*4+1}px;animation-duration:${Math.random()*8+4}s;animation-delay:${Math.random()*4}s`;
+        c.appendChild(p);
+    }
+});
+
+// Init first slide
+setTimeout(()=>goTo(1),300);
+</script>
+</body>
+</html>

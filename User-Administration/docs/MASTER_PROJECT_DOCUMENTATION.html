@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation Maîtresse - NexorSys Identity + Kiosk</title>
+    <style>
+        :root {
+            --primary: #004d40;
+            --primary-light: #00695c;
+            --accent: #10b981;
+            --bg: #fdfdfd;
+            --sidebar-bg: #f1f5f9;
+            --text: #1e293b;
+            --border: #e2e8f0;
+        }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            background: var(--bg);
+        }
+        aside {
+            width: 300px;
+            background: var(--sidebar-bg);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            padding: 40px 20px;
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+        }
+        aside h2 { font-size: 1.2rem; color: var(--primary); margin-bottom: 30px; border-bottom: 2px solid var(--accent); padding-bottom: 10px; }
+        aside nav ul { list-style: none; padding: 0; }
+        aside nav ul li { margin-bottom: 15px; }
+        aside nav ul li a { text-decoration: none; color: var(--text); font-weight: 500; font-size: 0.95rem; }
+        aside nav ul li a:hover { color: var(--accent); }
+
+        main {
+            flex: 1;
+            padding: 60px 80px;
+            max-width: 1000px;
+        }
+        header { border-bottom: 4px solid var(--primary); padding-bottom: 30px; margin-bottom: 50px; }
+        h1 { font-size: 3rem; color: var(--primary); margin: 0; }
+        h2 { font-size: 2rem; color: var(--primary); margin-top: 60px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        h3 { font-size: 1.5rem; color: var(--primary-light); margin-top: 40px; }
+        
+        .card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        code { background: #f1f5f9; padding: 3px 6px; border-radius: 4px; font-family: 'Fira Code', monospace; font-size: 0.9rem; }
+        pre { background: #1e293b; color: #f8fafc; padding: 20px; border-radius: 12px; overflow-x: auto; font-size: 0.85rem; }
+        
+        .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; background: var(--accent); color: white; vertical-align: middle; margin-left: 10px; }
+        
+        table { width: 100%; border-collapse: collapse; margin: 30px 0; }
+        th, td { text-align: left; padding: 15px; border-bottom: 1px solid var(--border); }
+        th { background: var(--sidebar-bg); color: var(--primary); font-weight: 700; }
+
+        @media print { aside { display: none; } main { padding: 0; max-width: 100%; } }
+    </style>
+</head>
+<body>
+    <aside>
+        <h2>SOMMAIRE</h2>
+        <nav>
+            <ul>
+                <li><a href="#intro">1. Introduction & Vision</a></li>
+                <li><a href="#backend">2. Architecture Backend (.NET 8)</a></li>
+                <li><a href="#frontend">3. Dashboard Identity (React)</a></li>
+                <li><a href="#kiosk">4. Client Pinède NFC (WPF)</a></li>
+                <li><a href="#database">5. Modélisation de Données</a></li>
+                <li><a href="#security">6. Sécurité & Conformité</a></li>
+                <li><a href="#integration">7. Logiques d'Intégration</a></li>
+                <li><a href="#deploy">8. Déploiement & Maintenance</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+        <header>
+            <h1 id="intro">Documentation Maîtresse : NexorSys Identity + Kiosk</h1>
+            <p><strong>Version :</strong> 1.5.2 (Commercial Release) | <strong>Statut :</strong> Production-Ready (Frozen Candidate)</p>
+        </header>
+
+        <section>
+            <h2>1. Introduction & Vision Stratégique</h2>
+            <div class="card">
+                <p>La <strong>Suite NexorSys Identity + Kiosk</strong> est une solution de gouvernance des identités (IAM) et de sécurisation des accès terminaux conçue spécifiquement pour des environnements partagés (chariots de soins, urgences, entreprises). Le sous-système Vault intégré (1.5.2) protège les identifiants partagés par un chiffrement de niveau entreprise (AES-256-GCM).</p>
+                <p><strong>Objectif :</strong> Remplacer le login classique par une authentification forte "Tap-to-Login" (Badge NFC + PIN) en moins de 3 secondes.</p>
+            </div>
+        </section>
+
+        <section id="backend">
+            <h2>2. Architecture Backend (.NET 8)</h2>
+            <p>Le backend centralise toute la logique métier et sert de source de vérité unique (SSOT).</p>
+            <div class="card">
+                <h3>Composants Clés :</h3>
+                <ul>
+                    <li><strong>LdapService.cs</strong> : Gère la synchronisation bidirectionnelle avec l'Active Directory. Importe les agents et vérifie les credentials AD.</li>
+                    <li><strong>KioskAuthController.cs</strong> : Endpoint haute performance pour le handshake sécurisé avec les clients WPF.</li>
+                    <li><strong>AuditService.cs</strong> : Enregistre chaque événement de sécurité via des requêtes SQL natives pour garantir une traçabilité immuable.</li>
+                </ul>
+                <h3>Points d'API Critiques :</h3>
+                <pre>POST /api/auth/login        // Accès Dashboard DSI
+POST /api/kiosk/auth       // Validation Badge + PIN
+GET  /api/users/search     // Recherche hybride SQL/LDAP
+POST /api/kiosk/reset-pin  // Révocation de sécurité</pre>
+            </div>
+        </section>
+
+        <section id="frontend">
+            <h2>3. Dashboard Identity (React / Vite)</h2>
+            <p>Interface d'administration pour la DSI permettant la supervision globale.</p>
+            <div class="card">
+                <h3>Fonctionnalités :</h3>
+                <ul>
+                    <li><strong>Gestion des Agents</strong> : Enrôlement des badges NFC et configuration des codes PIN.</li>
+                    <li><strong>Piste d'Audit</strong> : Visualisation temps réel des accès par service et par agent.</li>
+                    <li><strong>Contrôle RBAC</strong> : Attribution granulaire des accès applicatifs (BlueKango, EMED, etc.).</li>
+                </ul>
+                <p><em>Technologie : React 18, Tailwind CSS (Glassmorphism), Lucide Icons.</em></p>
+            </div>
+        </section>
+
+        <section id="kiosk">
+            <h2>4. Client Pinède NFC (WPF / .NET 8) <span class="badge">Lockdown Layer</span></h2>
+            <p>Le client lourd Windows qui transforme un PC standard en kiosque sécurisé.</p>
+            <div class="card">
+                <h3>Logiques Locales :</h3>
+                <ul>
+                    <li><strong>NfcService.cs</strong> : Monitoring permanent des lecteurs PC/SC via la pile native <code>PCSC-Sharp</code>.</li>
+                    <li><strong>Windows Lockdown</strong> : Masquage total de la barre des tâches et interception des raccourcis système (Alt+F4, Ctrl+Esc).</li>
+                    <li><strong>Secure Storage</strong> : Aucune donnée sensible n'est persistée localement ; tout transite par des flux JWT signés.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="database">
+            <h2>5. Modélisation de Données (PostgreSQL)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Table</th>
+                        <th>Rôle</th>
+                        <th>Sécurité</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>users</code></td>
+                        <td>Profils agents et GUID Active Directory</td>
+                        <td>Indexé pour recherche rapide</td>
+                    </tr>
+                    <tr>
+                        <td><code>user_pins</code></td>
+                        <td>Codes secrets 2FA</td>
+                        <td><strong>Hash BCrypt (Salted)</strong></td>
+                    </tr>
+                    <tr>
+                        <td><code>audit_logs</code></td>
+                        <td>Traces de conformité légale</td>
+                        <td>Partitionné (JSONB)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="security">
+            <h2>6. Sécurité & Conformité</h2>
+            <div class="card">
+                <h3>Standards Appliqués :</h3>
+                <ul>
+                    <li><strong>eIDAS Substantiel</strong> : Authentification MFA (Possession + Connaissance).</li>
+                    <li><strong>BCrypt Hashing</strong> : Protection contre les attaques par force brute sur les bases de données.</li>
+                    <li><strong>JWT Tokens</strong> : Jetons de session signés avec une clé de 2048 bits (RSA).</li>
+                    <li><strong>Smart App Control</strong> : Binaires signés numériquement pour Windows 11.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="integration">
+            <h2>7. Logiques d'Intégration Systèmes</h2>
+            <div class="card">
+                <h3>Protocole URI Custom (<code>nexorsysnfc://</code>)</h3>
+                <p>Permet au Dashboard Web de piloter l'application locale Windows. En cliquant sur une action web, le navigateur invoque le registre Windows pour lancer ou configurer le Kiosque NFC à distance.</p>
+            </div>
+        </section>
+
+        <section id="deploy">
+            <h2>8. Déploiement & Maintenance</h2>
+            <div class="card">
+                <p>Le déploiement est automatisé via des scripts PowerShell :</p>
+                <ul>
+                    <li><strong>Setup-Database.ps1</strong> : Initialisation du schéma PostgreSQL.</li>
+                    <li><strong>Sign-App.ps1</strong> : Signature cryptographique des exécutables.</li>
+                    <li><strong>Install_Application.ps1</strong> : Déploiement MSI sur les terminaux de soins.</li>
+                </ul>
+            </div>
+        </section>
+
+        <footer>
+            <div class="card" style="text-align: center; background: var(--sidebar-bg);">
+                <p>© 2026 Clinique La Pinède - Document Confidentiel DSI</p>
+            </div>
+        </footer>
+    </main>
+</body>
+</html>

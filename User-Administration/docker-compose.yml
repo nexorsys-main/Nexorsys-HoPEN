@@ -1,0 +1,53 @@
+﻿version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: nexorsys_identity_db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:?Set POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER:?Set POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}
+    ports:
+      - "15432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: nexorsys_identity_api
+    environment:
+      - ConnectionStrings__DefaultConnection=${NEXORSYS_DATABASE:?Set NEXORSYS_DATABASE}
+      - Jwt__Key=${NEXORSYS_JWT_KEY:?Set NEXORSYS_JWT_KEY}
+      - Ldap__Url=${NEXORSYS_LDAP_URL:?Set NEXORSYS_LDAP_URL}
+      - Ldap__BaseDn=${NEXORSYS_LDAP_BASE_DN:?Set NEXORSYS_LDAP_BASE_DN}
+      - Ldap__ServiceAccount=${NEXORSYS_LDAP_SERVICE_ACCOUNT:?Set NEXORSYS_LDAP_SERVICE_ACCOUNT}
+      - Ldap__ServicePassword=${NEXORSYS_LDAP_SERVICE_PASSWORD:?Set NEXORSYS_LDAP_SERVICE_PASSWORD}
+      - Auth__MockMode=false
+      - KioskApiKey=${NEXORSYS_KIOSK_API_KEY:?Set NEXORSYS_KIOSK_API_KEY}
+    ports:
+      - "7000:7000"
+      - "5000:5000"
+    depends_on:
+      - postgres
+    restart: on-failure
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: nexorsys_identity_ui
+    ports:
+      - "3005:3000"
+    depends_on:
+      - backend
+    restart: on-failure
+
+volumes:
+  postgres_data:
+
+# To build and run:
+# docker-compose up --build
