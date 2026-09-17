@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation Installation NFC — NexorSys Identity + Kiosk</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            color: white;
+        }
+
+        .container {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .instructions {
+            width: 400px;
+        }
+
+        .instructions h1 {
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #34d399, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .instructions p {
+            font-size: 16px;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .steps {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .steps li {
+            font-size: 14px;
+            color: #cbd5e1;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            opacity: 0.4;
+            transition: opacity 0.3s;
+        }
+
+        .steps li.active {
+            opacity: 1;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .steps li .num {
+            width: 24px;
+            height: 24px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .steps li.active .num {
+            background: #10b981;
+            color: white;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+        }
+
+        .btn-play {
+            margin-top: 40px;
+            padding: 12px 24px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.5);
+            transition: all 0.2s;
+        }
+
+        .btn-play:hover {
+            transform: translateY(-2px);
+            background: #2563eb;
+        }
+
+        /* The Installer Window */
+        .window {
+            width: 600px;
+            height: 650px;
+            background-color: #f8fafc;
+            border-radius: 12px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transform-origin: center right;
+        }
+
+        .header {
+            height: 80px;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            padding: 15px 20px;
+            box-sizing: border-box;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .header-title {
+            color: white;
+            font-size: 20px;
+            font-weight: 900;
+            margin: 0 0 4px 0;
+        }
+
+        .header-subtitle {
+            color: #bfdbfe;
+            font-size: 12px;
+            margin: 0;
+        }
+
+        .content {
+            padding: 25px;
+            flex-grow: 1;
+            color: #1e293b;
+        }
+
+        .step-title {
+            font-size: 11px;
+            font-weight: 800;
+            color: #2563eb;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .field-group {
+            margin-bottom: 20px;
+        }
+
+        .label {
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: block;
+            color: #334155;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input {
+            flex-grow: 1;
+            height: 32px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 0 12px;
+            font-size: 12px;
+            background: white;
+            display: flex;
+            align-items: center;
+            color: #0f172a;
+            position: relative;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .btn-browse {
+            width: 90px;
+            height: 34px;
+            background: white;
+            border: 1px solid #cbd5e1;
+            color: #475569;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .options {
+            margin-top: 25px;
+        }
+
+        .checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            color: #334155;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .check-box {
+            width: 16px;
+            height: 16px;
+            border: 1px solid #2563eb;
+            border-radius: 4px;
+            background: #3b82f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 11px;
+        }
+
+        .footer {
+            height: 60px;
+            background-color: #f1f5f9;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 0 25px;
+            gap: 15px;
+        }
+
+        .btn-cancel {
+            color: #64748b;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .btn-install {
+            width: 220px;
+            height: 36px;
+            background-color: #2563eb;
+            color: white;
+            border-radius: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 13px;
+            font-weight: 700;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+        }
+
+        .progress-container {
+            display: none;
+            margin-top: 25px;
+        }
+
+        .progress-bar {
+            height: 12px;
+            background: #e2e8f0;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: #10b981;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .log-box {
+            height: 100px;
+            background: #0f172a;
+            color: #34d399;
+            border-radius: 8px;
+            padding: 12px;
+            font-family: Consolas, monospace;
+            font-size: 11px;
+            overflow-y: hidden;
+            white-space: pre-line;
+            border: 1px solid #1e293b;
+        }
+
+        /* Cursor Animation Elements */
+        .cursor {
+            width: 24px;
+            height: 24px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="black" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/></svg>');
+            position: absolute;
+            z-index: 100;
+            top: 700px;
+            left: 300px;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .click-ripple {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, 0.4);
+            transform: scale(0);
+            opacity: 1;
+            pointer-events: none;
+            z-index: 99;
+        }
+        
+        @keyframes ripple {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="instructions">
+            <h1>Déploiement Kiosque</h1>
+            <p>Le déploiement a été sécurisé : les scripts <code style="color:#f87171">.bat</code> ont été supprimés pour éviter les blocages système. Utilisez désormais l'assistant graphique.</p>
+            
+            <ul class="steps" id="stepsList">
+                <li id="s1" class="active"><div class="num">1</div> Clic-droit : Exécuter en tant qu'admin</li>
+                <li id="s2"><div class="num">2</div> Sélectionner l'exécutable terminal</li>
+                <li id="s3"><div class="num">3</div> Valider l'IP du serveur backend</li>
+                <li id="s4"><div class="num">4</div> Lancer l'installation sécurisée</li>
+            </ul>
+
+            <button class="btn-play" onclick="startAnimation()" id="playBtn">▶ Lancer la démonstration</button>
+        </div>
+
+        <div class="window">
+            <div class="header">
+                <h1 class="header-title">🛡️ NexorSys Kiosk</h1>
+                <p class="header-subtitle">Assistant d'installation — NexorSys Identity | Innovera France</p>
+            </div>
+            
+            <div class="content">
+                <div class="step-title" id="stepText">ÉTAPE 1 / 6 — Sélection des fichiers</div>
+                
+                <div class="field-group">
+                    <span class="label">📦 Application kiosque (PinedeIdentityTerminal.exe) :</span>
+                    <div class="input-row">
+                        <div class="input" id="exePath" style="color: #94a3b8">Cliquez Parcourir pour localiser l'exécutable...</div>
+                        <div class="btn-browse" id="btnBrowse1">Parcourir...</div>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <span class="label">⚙️ Fichier de configuration (appsettings.json) :</span>
+                    <div class="input-row">
+                        <div class="input" style="color: #94a3b8">Optionnel — laissez vide pour auto-générer</div>
+                        <div class="btn-browse">Parcourir...</div>
+                    </div>
+                </div>
+
+                <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 20px 0;">
+
+                <div class="input-row" style="gap: 20px;">
+                    <div class="field-group" style="flex: 1;">
+                        <span class="label">Adresse IP du serveur backend :</span>
+                        <div class="input">192.168.1.100</div>
+                    </div>
+                    <div class="field-group" style="flex: 1.5;">
+                        <span class="label">Clé API kiosque :</span>
+                        <div class="input">Injected by deployment</div>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <span class="label">Dossier d'installation :</span>
+                    <div class="input-row">
+                        <div class="input">C:\Kiosque\PinedeNFC</div>
+                        <div class="btn-browse">Parcourir...</div>
+                    </div>
+                </div>
+
+                <div class="options" id="optionsGroup">
+                    <span class="label">Options de déploiement :</span>
+                    <div class="checkbox"><div class="check-box">✓</div> Créer un raccourci sur le bureau</div>
+                    <div class="checkbox"><div class="check-box">✓</div> Démarrage automatique au lancement de Windows</div>
+                    <div class="checkbox"><div class="check-box">✓</div> Désactiver l'économiseur d'écran</div>
+                </div>
+
+                <div class="progress-container" id="progressGroup">
+                    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+                    <div class="log-box" id="logBox"></div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <div class="btn-cancel">Annuler</div>
+                <div class="btn-install" id="btnInstall">▶ Installer l'application</div>
+            </div>
+
+            <div class="cursor" id="cursor"></div>
+        </div>
+
+    </div>
+
+    <script>
+        const sleep = ms => new Promise(r => setTimeout(r, ms));
+        
+        async function moveCursor(x, y, duration) {
+            const cursor = document.getElementById('cursor');
+            cursor.style.transition = `all ${duration}ms ease-in-out`;
+            cursor.style.left = `${x}px`;
+            cursor.style.top = `${y}px`;
+            await sleep(duration);
+        }
+
+        async function click() {
+            const cursor = document.getElementById('cursor');
+            cursor.style.transition = 'transform 0.1s';
+            cursor.style.transform = 'scale(0.8)';
+            await sleep(100);
+            
+            const rect = cursor.getBoundingClientRect();
+            const ripple = document.createElement('div');
+            ripple.className = 'click-ripple';
+            ripple.style.left = `${rect.left}px`;
+            ripple.style.top = `${rect.top}px`;
+            document.body.appendChild(ripple);
+            ripple.style.animation = 'ripple 0.6s ease-out forwards';
+            
+            cursor.style.transform = 'scale(1)';
+            await sleep(100);
+            
+            setTimeout(() => ripple.remove(), 600);
+        }
+
+        function setStep(num) {
+            for(let i=1; i<=4; i++) {
+                document.getElementById('s'+i).className = i === num ? 'active' : '';
+            }
+        }
+
+        async function startAnimation() {
+            document.getElementById('playBtn').disabled = true;
+            document.getElementById('playBtn').innerText = "Démonstration en cours...";
+            
+            // Reset state
+            document.getElementById('exePath').style.color = '#94a3b8';
+            document.getElementById('exePath').innerText = "Cliquez Parcourir pour localiser l'exécutable...";
+            document.getElementById('optionsGroup').style.display = 'block';
+            document.getElementById('progressGroup').style.display = 'none';
+            document.getElementById('progressFill').style.width = '0%';
+            document.getElementById('logBox').innerText = '';
+            document.getElementById('stepText').innerText = 'ÉTAPE 1 / 6 — Sélection des fichiers';
+            document.getElementById('btnInstall').innerText = '▶ Installer l\'application';
+            document.getElementById('btnInstall').style.backgroundColor = '#2563eb';
+            setStep(1);
+
+            const cursor = document.getElementById('cursor');
+            cursor.style.opacity = '1';
+            cursor.style.top = '700px';
+            cursor.style.left = '300px';
+
+            await sleep(1000);
+            setStep(2);
+            await moveCursor(490, 150, 800); // move to browse
+            await click();
+            await sleep(400);
+            
+            document.getElementById('exePath').style.color = '#0f172a';
+            document.getElementById('exePath').innerText = 'D:\\...\\Publish_Portable\\PinedeIdentityTerminal.exe';
+            
+            await sleep(1000);
+            setStep(3);
+            await moveCursor(200, 310, 800); // hover over IP
+            await sleep(800);
+            
+            setStep(4);
+            await moveCursor(480, 610, 1000); // move to install
+            await click();
+            
+            document.getElementById('optionsGroup').style.display = 'none';
+            document.getElementById('progressGroup').style.display = 'block';
+            
+            const logs = [
+                "[1/6] Création du dossier d'installation...",
+                "[2/6] Copie de l'application...\n   → C:\\Kiosque\\PinedeNFC\\PinedeIdentityTerminal.exe",
+                "[3/6] Configuration du serveur...\n   → appsettings.json généré depuis les champs\n   → Serveur: http://192.168.1.100:5000",
+                "[4/6] Création des raccourcis...\n   → Raccourcis créés",
+                "[5/6] Configuration système...\n   → Économiseur désactivé",
+                "\n✅ INSTALLATION RÉUSSIE !"
+            ];
+            
+            const progressSteps = [15, 40, 60, 80, 95, 100];
+            const logBox = document.getElementById('logBox');
+            
+            for(let i=0; i<logs.length; i++) {
+                await sleep(700);
+                logBox.innerText += logs[i] + "\n";
+                logBox.scrollTop = logBox.scrollHeight;
+                document.getElementById('progressFill').style.width = progressSteps[i] + '%';
+                if(i < 5) document.getElementById('stepText').innerText = `ÉTAPE ${i+1} / 6 — En cours...`;
+            }
+
+            document.getElementById('stepText').innerText = `ÉTAPE 6 / 6 — Terminé`;
+            document.getElementById('btnInstall').innerText = "✅ Installation Terminée !";
+            document.getElementById('btnInstall').style.backgroundColor = "#10b981";
+            
+            await moveCursor(480, 700, 1000);
+            cursor.style.opacity = '0';
+
+            document.getElementById('playBtn').disabled = false;
+            document.getElementById('playBtn').innerText = "▶ Rejouer la démonstration";
+        }
+    </script>
+</body>
+</html>

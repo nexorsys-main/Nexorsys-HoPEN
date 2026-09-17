@@ -1,0 +1,214 @@
+<UserControl x:Class="Pinede.NFC.APP.Vues.EcranParametres"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:local="clr-namespace:Pinede.NFC.APP.Converters"
+             Background="#F0F4F8">
+    <UserControl.Resources>
+        <Style x:Key="HeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#102A43"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+        </Style>
+        <Style TargetType="Border" x:Key="CardStyle">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#D9E2EC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="25"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#102A43" Opacity="0.05" BlurRadius="10" ShadowDepth="2" Direction="270"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="LabelStyle">
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#334E68"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="ValueStyle">
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="Foreground" Value="#102A43"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="BorderBrush" Value="#BCCCDC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <local:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
+    </UserControl.Resources>
+
+    <Grid Margin="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- HEADER -->
+        <Grid Grid.Row="0" Margin="0,0,0,30">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="Kiosque Administration" FontSize="36" FontWeight="ExtraBold" Foreground="#0A2540"/>
+                <TextBlock Text="Maintenance locale et liaison avec le contrôleur central" FontSize="14" Foreground="#4A5568" Margin="0,5,0,0"/>
+            </StackPanel>
+            <Button Grid.Column="1" Content="❌ Quitter le Kiosque" Command="{Binding FermerCommand}" 
+                    Padding="20,10" Background="#FFE6E6" Foreground="#C53030" BorderThickness="0" Cursor="Hand" FontWeight="Bold" FontSize="14"/>
+        </Grid>
+
+        <!-- MAIN CONTENT -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="0,0,10,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- LEFT COLUMN: DIAGNOSTIC -->
+            <StackPanel Grid.Column="0">
+                <Border Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="🩺 Diagnostic du Matériel" Style="{StaticResource HeaderStyle}"/>
+                        
+                        <Grid Margin="0,0,0,20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" Background="#E6FFFA" BorderBrush="#81E6D9" BorderThickness="1" CornerRadius="8" Padding="15" Margin="0,0,15,0">
+                                <TextBlock Text="🔌" FontSize="32" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock Text="Lecteur NFC PCSC" Style="{StaticResource LabelStyle}" Margin="0"/>
+                                <TextBlock Text="{Binding LecteurNfcStatut}" FontWeight="Bold" FontSize="16" Foreground="#2C7A7B" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <TextBlock Text="Nom d'hôte du terminal :" Style="{StaticResource LabelStyle}"/>
+                        <TextBlock Text="{Binding MachineName}" Style="{StaticResource ValueStyle}" FontWeight="Bold"/>
+
+                        <TextBlock Text="Version du Logiciel :" Style="{StaticResource LabelStyle}"/>
+                        <TextBlock Text="v1.3.0" Style="{StaticResource ValueStyle}"/>
+
+                        <TextBlock Text="Hash de Configuration Actuel :" Style="{StaticResource LabelStyle}"/>
+                        <TextBlock Text="{Binding ConfigHash}" Style="{StaticResource ValueStyle}" Foreground="#718096"/>
+
+                        <TextBlock Text="Moyens d'Authentification (MIE) Actifs :" Style="{StaticResource LabelStyle}" Margin="0,10,0,10"/>
+                        <WrapPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <Border Background="#EBF8FF" BorderBrush="#90CDF4" BorderThickness="1" CornerRadius="4" Padding="8,4" Margin="0,0,8,8" Visibility="{Binding TerminalConfig.MieNfcEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <TextBlock Text="📡 NFC" FontSize="12" FontWeight="SemiBold" Foreground="#2B6CB0"/>
+                            </Border>
+                            <Border Background="#EBF8FF" BorderBrush="#90CDF4" BorderThickness="1" CornerRadius="4" Padding="8,4" Margin="0,0,8,8" Visibility="{Binding TerminalConfig.MieCpsEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <TextBlock Text="💳 CPS" FontSize="12" FontWeight="SemiBold" Foreground="#2B6CB0"/>
+                            </Border>
+
+                            <Border Background="#EBF8FF" BorderBrush="#90CDF4" BorderThickness="1" CornerRadius="4" Padding="8,4" Margin="0,0,8,8" Visibility="{Binding TerminalConfig.MieFidoEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <TextBlock Text="🔑 FIDO2" FontSize="12" FontWeight="SemiBold" Foreground="#2B6CB0"/>
+                            </Border>
+                            <Border Background="#EBF8FF" BorderBrush="#90CDF4" BorderThickness="1" CornerRadius="4" Padding="8,4" Margin="0,0,8,8" Visibility="{Binding TerminalConfig.MieCartePsEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <TextBlock Text="🏥 PSÉ" FontSize="12" FontWeight="SemiBold" Foreground="#2B6CB0"/>
+                            </Border>
+                            <Border Background="#EBF8FF" BorderBrush="#90CDF4" BorderThickness="1" CornerRadius="4" Padding="8,4" Margin="0,0,8,8" Visibility="{Binding TerminalConfig.MiePsiEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <TextBlock Text="🛡️ PSI" FontSize="12" FontWeight="SemiBold" Foreground="#2B6CB0"/>
+                            </Border>
+                        </WrapPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource CardStyle}" Background="#EDF2F7" BorderBrush="#CBD5E0">
+                    <StackPanel>
+                        <TextBlock Text="ℹ️ Information de Sécurité" FontSize="16" FontWeight="Bold" Foreground="#2D3748" Margin="0,0,0,10"/>
+                        <TextBlock Text="Les réglages métier (dossiers patients, timeouts, etc.) sont bloqués en édition locale. Ils sont directement poussés par le serveur central Pinede Identity toutes les 60 secondes." 
+                                   TextWrapping="Wrap" FontSize="12" Foreground="#4A5568" LineHeight="18"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <!-- RIGHT COLUMN: LIAISON SERVEUR -->
+            <StackPanel Grid.Column="2">
+                <Border Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="🌐 Liaison avec le Serveur Central" Style="{StaticResource HeaderStyle}"/>
+                        
+                        <Border Background="#EBF8FF" BorderBrush="#90CDF4" BorderThickness="1" CornerRadius="6" Padding="20" Margin="0,0,0,25">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0"
+                                        Content="📂 Importer configuration USB"
+                                        Command="{Binding ImporterAppsettingsCommand}"
+                                        Padding="15,12"
+                                        Background="#2B6CB0" Foreground="White"
+                                        BorderThickness="0"
+                                        FontWeight="Bold" FontSize="14"
+                                        Cursor="Hand"/>
+                                <TextBlock Grid.Column="1" Margin="15,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap" FontSize="12" Foreground="#2C5282">
+                                    En cas de perte réseau, chargez un <Run FontWeight="Bold" Text="appsettings.json"/> depuis une clé USB pour rétablir la connexion.
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+
+                        <TextBlock Text="URL du serveur d'authentification :" Style="{StaticResource LabelStyle}"/>
+                        <TextBox Text="{Binding ApiSettings.BaseUrl}"/>
+
+                        <TextBlock Text="Clé de rattachement Kiosque (API Key) :" Style="{StaticResource LabelStyle}"/>
+                        <TextBox Text="{Binding ApiSettings.ApiKey}"/>
+
+                        <Grid Margin="0,15,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Content="Tester la Connexion" Command="{Binding TesterConnexionApiCommand}" 
+                                    Padding="20,10" Background="White" BorderBrush="#BCCCDC" BorderThickness="1" Cursor="Hand" Foreground="#102A43" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="1" Text="{Binding ApiSettings.StatutTestApi}" FontWeight="Bold" Margin="15,0,0,0" Foreground="#276749" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+            </Grid>
+        </ScrollViewer>
+
+        <!-- FOOTER -->
+        <Border Grid.Row="2" Background="White" BorderBrush="#D9E2EC" BorderThickness="0,1,0,0" Margin="-30,0,-30,-30" Padding="30,20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Column="0" Text="Mode Administration - Kiosque Pinede NFC" VerticalAlignment="Center" Foreground="#A0AEC0" FontSize="14" FontWeight="SemiBold"/>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Fermer sans enregistrer" Command="{Binding FermerCommand}" 
+                            Padding="20,12" Background="Transparent" Foreground="#4A5568" BorderThickness="0" Margin="0,0,15,0" Cursor="Hand" FontSize="15" FontWeight="SemiBold"/>
+                    <Button Content="💾 Appliquer les Paramètres Réseau" Command="{Binding SauvegarderCommand}" 
+                            Padding="25,12" Background="#04C19D" Foreground="White" BorderThickness="0" Cursor="Hand" FontWeight="Bold" FontSize="15">
+                        <Button.Effect>
+                            <DropShadowEffect Color="#04C19D" Opacity="0.4" BlurRadius="10" ShadowDepth="2"/>
+                        </Button.Effect>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

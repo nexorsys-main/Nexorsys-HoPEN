@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../User-Administration"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "User-Administration"
+	}
+}

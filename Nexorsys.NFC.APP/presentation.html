@@ -1,0 +1,671 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <title>Pinede NFC Kiosque — Présentation Sécurisation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --blue: #0284c7; --blue-dark: #0369a1; --blue-light: #e0f2fe;
+            --green: #059669; --green-light: #d1fae5;
+            --red: #dc2626; --red-light: #fee2e2;
+            --amber: #d97706; --amber-light: #fef3c7;
+            --slate: #1e293b; --slate-mid: #475569; --slate-light: #94a3b8;
+            --bg: #f1f5f9; --white: #ffffff;
+        }
+        body, html { margin:0; padding:0; font-family:'Inter',sans-serif; background:#cbd5e1; overflow:hidden; color:var(--slate); }
+        .fallback-message { display:none; }
+        .impress-not-supported .fallback-message { display:block; position:fixed; inset:0; background:white; padding:50px; text-align:center; font-size:2em; z-index:1000; }
+
+        .step {
+            position:relative; width:1400px; height:860px; padding:55px 75px;
+            box-sizing:border-box; background:rgba(255,255,255,0.96);
+            border-radius:20px; box-shadow:0 30px 60px rgba(0,0,0,0.18);
+            opacity:0; pointer-events:none; transition:opacity 1.2s, box-shadow 0.8s;
+            border:1px solid rgba(255,255,255,0.7);
+        }
+        .step.active { opacity:1; pointer-events:auto; box-shadow:0 40px 80px rgba(2,132,199,0.22); }
+
+        h1 { font-size:3.2em; line-height:1.15; color:var(--blue-dark); font-weight:800; margin:0 0 12px; }
+        h2 { font-size:2.2em; font-weight:700; color:var(--slate); margin:0 0 8px; border-bottom:4px solid var(--blue); padding-bottom:10px; display:inline-block; }
+        h3 { font-size:1.5em; font-weight:700; color:var(--blue-dark); margin:0 0 8px; }
+        h4 { font-size:1.15em; font-weight:700; color:var(--slate); margin:0 0 8px; }
+        p { font-size:1.15em; line-height:1.65; margin:0 0 10px; }
+        ul { font-size:1.1em; line-height:1.7; margin:0 0 10px 20px; padding:0; }
+        li { margin-bottom:8px; }
+
+        .pill { display:inline-block; padding:6px 18px; border-radius:50px; background:var(--blue); color:#fff; font-size:0.85em; font-weight:700; margin-bottom:14px; letter-spacing:0.05em; }
+        .pill.green { background:var(--green); }
+        .pill.amber { background:var(--amber); }
+        .pill.red { background:var(--red); }
+
+        .g2 { display:grid; grid-template-columns:1fr 1fr; gap:30px; }
+        .g3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:22px; }
+        .g4 { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:18px; }
+
+        .card { background:#fff; border-left:6px solid var(--blue); padding:22px 20px; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.07); }
+        .card.green { border-left-color:var(--green); }
+        .card.red { border-left-color:var(--red); }
+        .card.amber { border-left-color:var(--amber); }
+        .card.neutral { border-left-color:var(--slate-light); }
+        .card i { font-size:1.8em; color:var(--blue); margin-bottom:10px; display:block; }
+        .card.green i { color:var(--green); }
+        .card.red i { color:var(--red); }
+        .card.amber i { color:var(--amber); }
+
+        .info-box { background:var(--blue-light); border:2px solid var(--blue); border-radius:10px; padding:20px 24px; font-size:1.05em; }
+        .warn-box { background:var(--amber-light); border:2px solid var(--amber); border-radius:10px; padding:20px 24px; font-size:1.05em; }
+        .danger-box { background:var(--red-light); border:2px solid var(--red); border-radius:10px; padding:20px 24px; font-size:1.05em; }
+        .success-box { background:var(--green-light); border:2px solid var(--green); border-radius:10px; padding:20px 24px; font-size:1.05em; }
+
+        /* Comparison table */
+        .cmp-table { width:100%; border-collapse:collapse; font-size:0.92em; }
+        .cmp-table th { background:var(--slate); color:#fff; padding:10px 12px; text-align:center; font-weight:600; }
+        .cmp-table th:first-child { text-align:left; }
+        .cmp-table td { padding:9px 12px; border-bottom:1px solid #e2e8f0; text-align:center; }
+        .cmp-table td:first-child { text-align:left; font-weight:600; }
+        .cmp-table tr:nth-child(even) { background:#f8fafc; }
+        .cmp-table tr.highlight { background:#eff6ff; }
+        .dot { width:14px; height:14px; border-radius:50%; display:inline-block; }
+        .dot.g { background:#10b981; }
+        .dot.a { background:#f59e0b; }
+        .dot.r { background:#ef4444; }
+
+        /* Flow diagram */
+        .flow { display:flex; align-items:center; gap:0; margin:30px 0; }
+        .flow-node { background:var(--blue); color:#fff; padding:14px 20px; border-radius:10px; font-size:0.95em; font-weight:700; text-align:center; min-width:140px; box-shadow:0 4px 12px rgba(2,132,199,0.35); }
+        .flow-node.green { background:var(--green); box-shadow:0 4px 12px rgba(5,150,105,0.35); }
+        .flow-node.slate { background:var(--slate); box-shadow:0 4px 12px rgba(30,41,59,0.35); }
+        .flow-arrow { color:var(--slate-light); font-size:1.6em; padding:0 8px; }
+
+        /* Arch boxes */
+        .arch-box { border:2px solid var(--blue); border-radius:12px; padding:14px 18px; text-align:center; background:var(--blue-light); }
+        .arch-box.dark { background:var(--slate); color:#fff; border-color:var(--slate); }
+        .arch-box i { font-size:2em; display:block; margin-bottom:6px; color:var(--blue); }
+        .arch-box.dark i { color:#7dd3fc; }
+
+        pre { background:#1e293b; color:#e2e8f0; padding:24px; border-radius:12px; font-family:'JetBrains Mono',monospace; font-size:0.88em; overflow:hidden; }
+
+        .footer { position:fixed; bottom:16px; left:36px; right:36px; display:flex; justify-content:space-between; font-size:0.8em; color:#64748b; font-weight:600; z-index:100; pointer-events:none; }
+
+        /* Animated Slide Counter */
+        .slide-counter { position:fixed; top:30px; right:40px; font-family:'Inter',sans-serif; font-weight:800; z-index:1000; opacity: 0; transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); transform: translateY(-20px) scale(0.8); pointer-events:none; }
+        .slide-counter.visible { opacity: 1; transform: translateY(0) scale(1); }
+        .slide-counter .pill-wrap { display:inline-flex; align-items:baseline; background:rgba(255,255,255,0.9); border:2px solid var(--blue); padding:8px 20px; border-radius:50px; box-shadow:0 10px 25px rgba(2,132,199,0.2); backdrop-filter:blur(5px); }
+        .slide-counter .current { color:var(--blue-dark); font-size:1.4em; }
+        .slide-counter .slash { color:var(--slate-light); margin:0 6px; font-weight:400; font-size:1.1em;}
+        .slide-counter .total { color:var(--slate-mid); font-size:1em; }
+
+        .big-icon { font-size:4em; color:var(--blue); margin-bottom:16px; display:block; text-align:center; }
+        .tag { display:inline-block; padding:3px 10px; border-radius:4px; font-size:0.78em; font-weight:700; margin-left:6px; }
+        .tag.g { background:var(--green-light); color:var(--green); }
+        .tag.a { background:var(--amber-light); color:var(--amber); }
+        .tag.r { background:var(--red-light); color:var(--red); }
+        .tag.b { background:var(--blue-light); color:var(--blue-dark); }
+
+        /* Title slide */
+        #slide1 { background:linear-gradient(135deg, #0f172a 0%, #0369a1 60%, #0284c7 100%); color:#fff; border:none; }
+        #slide1 h1 { color:#fff; font-size:3.5em; }
+        #slide1 h3 { color:#7dd3fc; font-size:1.4em; font-weight:400; }
+        #slide1 .sub { color:#bae6fd; font-size:1.1em; }
+
+        /* Overview */
+        #overview { background:transparent; box-shadow:none; border:none; opacity:1; }
+    </style>
+</head>
+<body class="impress-not-supported">
+<div class="fallback-message"><p>Utilisez Chrome ou Firefox pour afficher cette présentation.</p></div>
+<div class="footer">
+    <span>Pinede NFC Kiosque · Clinique La Pinède · DSI 2026 · HOP'EN</span>
+    <span>⬅ ➡ pour naviguer · Espace pour avancer</span>
+</div>
+
+<div id="impress" data-transition-duration="1200" data-perspective="900">
+
+<!-- ═══════════════════════════ 1. TITRE ═══════════════════════════ -->
+<div id="slide1" class="step" data-x="0" data-y="0" data-z="0" data-scale="1">
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;">
+        <img src="data:image/png;base64,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" alt="Logo Clinique" style="max-height:140px;margin-bottom:36px;filter:brightness(0) invert(1);opacity:0.9;">
+        <div class="pill" style="background:rgba(255,255,255,0.2);font-size:1em;margin-bottom:20px;">PROOF OF CONCEPT · GOUVERNANCE SI</div>
+        <h1>Pinede NFC Kiosque</h1>
+        <h3>Sécurisation des accès en environnement hospitalier</h3>
+        <div style="margin-top:40px;border-top:1px solid rgba(255,255,255,0.2);padding-top:28px;">
+            <p class="sub" style="margin:0;">Direction des Systèmes d'Information &nbsp;·&nbsp; Clinique La Pinède</p>
+            <p class="sub" style="margin:8px 0 0;opacity:0.7;font-size:0.95em;">Présentation à destination des parties prenantes e-santé · 2026</p>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════ 2. CONTEXTE ═══════════════════════════ -->
+<div id="slide2" class="step" data-x="1700" data-y="0" data-z="-1200" data-rotate-y="40">
+    <div class="pill">Contexte</div>
+    <h2>Situation réelle en clinique</h2>
+    <div class="g2" style="margin-top:24px;gap:24px;">
+        <div>
+            <h4 style="margin-bottom:12px;color:var(--slate-mid);">Postes de travail partagés</h4>
+            <ul>
+                <li>Terminaux multi-utilisateurs dans les couloirs et postes de soins</li>
+                <li>Rotation fréquente entre agents (équipes, gardes)</li>
+                <li>Absence de poste dédié par soignant</li>
+            </ul>
+            <div class="warn-box" style="margin-top:16px;">
+                <strong><i class="fa-solid fa-triangle-exclamation" style="color:var(--amber);"></i> Contrainte forte :</strong><br>
+                Pas de mobile professionnel pour tous · Budget limité · Ports USB désactivés (SSI) · CPS réservée aux médecins
+            </div>
+        </div>
+        <div>
+            <h4 style="margin-bottom:12px;color:var(--slate-mid);">Applications critiques concernées</h4>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                <div class="arch-box"><i class="fa-solid fa-pills"></i><strong>EMED</strong><br><small>Prescription médicale</small></div>
+                <div class="arch-box"><i class="fa-solid fa-clipboard-check"></i><strong>BlueKango</strong><br><small>Qualité / EI</small></div>
+                <div class="arch-box"><i class="fa-solid fa-route"></i><strong>Viatrajectoire</strong><br><small>Orientation patients</small></div>
+                <div class="arch-box"><i class="fa-solid fa-hospital"></i><strong>SIGEMS / Hestia</strong><br><small>Gestion médicale</small></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════ 3. PROBLÈME ═══════════════════════════ -->
+<div id="slide3" class="step" data-x="3400" data-y="0" data-z="-2400" data-rotate-y="80">
+    <div class="pill red">Problème</div>
+    <h2>Vulnérabilités identifiées</h2>
+    <div class="g2" style="margin-top:24px;">
+        <div style="display:flex;flex-direction:column;gap:16px;">
+            <div class="card red">
+                <i class="fa-solid fa-door-open"></i>
+                <h4>Accès non sécurisés</h4>
+                <p style="font-size:1em;">Sessions laissées ouvertes entre agents. Mots de passe partagés ou notés visiblement.</p>
+            </div>
+            <div class="card red">
+                <i class="fa-solid fa-eye-slash"></i>
+                <h4>Traçabilité insuffisante</h4>
+                <p style="font-size:1em;">Comptes génériques type <em>"Sec_Accueil"</em> rendant tout audit RGPD aveugle.</p>
+            </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+            <div class="card amber">
+                <i class="fa-solid fa-users-between-lines"></i>
+                <h4>Profils utilisateurs hétérogènes</h4>
+                <p style="font-size:1em;">IDE, AS, administratifs : niveaux d'équipement et de compétences très variés.</p>
+            </div>
+            <div class="card amber">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <h4>Absence de solution unique</h4>
+                <p style="font-size:1em;">Aucune solution du marché ne répond à l'ensemble des contraintes terrain.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════ 4. APPROCHE INITIALE ═══════════════════════════ -->
+<div id="slide4" class="step" data-x="3400" data-y="1800" data-z="-2400" data-rotate-y="80" data-rotate-x="40">
+    <div class="pill">Approche initiale</div>
+    <h2>Point de départ : NFC + Active Directory</h2>
+    <div class="g2" style="margin-top:24px;align-items:center;">
+        <div>
+            <p>Une solution simple, rapide et ergonomique basée sur deux facteurs :</p>
+            <div style="display:flex;flex-direction:column;gap:14px;margin-top:20px;">
+                <div class="card">
+                    <div style="display:flex;align-items:center;gap:16px;">
+                        <i class="fa-regular fa-id-badge" style="font-size:2.2em;color:var(--blue);margin:0;"></i>
+                        <div><h4 style="margin:0;">Facteur 1 — Possession</h4><p style="margin:4px 0 0;font-size:0.95em;">Badge NFC (Mifare) déjà attribué → aucune nouvelle carte à émettre</p></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div style="display:flex;align-items:center;gap:16px;">
+                        <i class="fa-solid fa-key" style="font-size:2.2em;color:var(--blue);margin:0;"></i>
+                        <div><h4 style="margin:0;">Facteur 2 — Connaissance (Code PIN)</h4><p style="margin:4px 0 0;font-size:0.95em;">Code PIN localisé à 6 ou 8 chiffres, évitant l'usage du vrai mot de passe AD</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="info-box" style="margin-top:18px;">
+                <strong>Principe :</strong> Réutiliser l'existant (badge bâtiment + AD) pour créer une MFA légère, sans surcoût matériel.
+            </div>
+        </div>
+        <div style="text-align:center;">
+            <i class="fa-regular fa-id-badge" style="font-size:5em;color:var(--blue);display:block;"></i>
+            <div style="font-size:2.5em;color:var(--slate-light);margin:10px 0;">+</div>
+            <i class="fa-solid fa-server" style="font-size:5em;color:var(--blue-dark);display:block;"></i>
+            <p style="margin-top:16px;font-size:1em;color:var(--slate-mid);font-weight:600;">NFC (Identité AD) + Code PIN (Sûreté)</p>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════ 5. FLUX DE DÉMONSTRATION ═══════════════════════════ -->
+<div id="slide5" class="step" data-x="1700" data-y="1800" data-z="-1200" data-rotate-y="40" data-rotate-x="40">
+    <div class="pill">Flux</div>
+    <h2>Parcours utilisateur — Démonstration</h2>
+    <p style="margin-top:8px;">Une authentification complète en <strong>moins de 5 secondes</strong> :</p>
+    <div class="flow" style="margin:32px 0;flex-wrap:wrap;gap:8px;">
+        <div class="flow-node"><i class="fa-solid fa-user-nurse" style="display:block;font-size:1.4em;margin-bottom:6px;"></i>Utilisateur</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node"><i class="fa-regular fa-id-badge" style="display:block;font-size:1.4em;margin-bottom:6px;"></i>Badge NFC</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node slate"><i class="fa-solid fa-desktop" style="display:block;font-size:1.4em;margin-bottom:6px;"></i>Kiosque WPF</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node slate"><i class="fa-solid fa-server" style="display:block;font-size:1.4em;margin-bottom:6px;"></i>Active Directory</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node green"><i class="fa-solid fa-grid-2" style="display:block;font-size:1.4em;margin-bottom:6px;"></i>Apps métiers</div>
+    </div>
+    <div class="g3" style="margin-top:16px;">
+        <div class="card neutral"><h4>① Kiosque verrouillé</h4><p style="font-size:0.92em;">Aucune donnée visible. Le lecteur attend le badge.</p></div>
+        <div class="card"><h4>② Scan + identification</h4><p style="font-size:0.92em;">L'UID est lu, l'utilisateur AD est identifié en temps réel via LDAP.</p></div>
+        <div class="card green"><h4>③ Saisie Code PIN</h4><p style="font-size:0.92em;">Validation du Code PIN par l'agent → Hub applicatif nominatif ouvert.</p></div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════ 6. SOLUTION TECHNIQUE ═══════════════════════════ -->
+<div id="slide6" class="step" data-x="0" data-y="1800" data-z="0" data-rotate-x="40">
+    <div class="pill">Technique</div>
+    <h2>Stack technique — Pinede NFC Kiosque</h2>
+    <div class="g3" style="margin-top:24px;">
+        <div class="card"><i class="fa-brands fa-microsoft"></i><h4>.NET 8 WPF</h4><p style="font-size:0.92em;">Client lourd natif. Architecture MVVM. Aucun runtime navigateur vulnérable.</p></div>
+        <div class="card"><i class="fa-solid fa-wifi"></i><h4>NFC / PCSC</h4><p style="font-size:0.92em;">Dialogue bas niveau via PC/SC (APDU FF CA 00 00 00). Compatible lecteurs HID / ACS.</p></div>
+        <div class="card"><i class="fa-solid fa-address-book"></i><h4>LDAP / Active Directory</h4><p style="font-size:0.92em;">Interrogation LDAPS (port 636) via TLS. Bind sécurisé avec compte de service.</p></div>
+        <div class="card"><i class="fa-solid fa-lock"></i><h4>AES-256</h4><p style="font-size:0.92em;">Chiffrement des secrets locaux lié à l'empreinte machine. IV dynamique anti-replay.</p></div>
+        <div class="card"><i class="fa-solid fa-file-lines"></i><h4>Logs JSONL</h4><p style="font-size:0.92em;">Journalisation structurée asynchrone, horodatée ISO 8601. Prête pour SIEM.</p></div>
+        <div class="card"><i class="fa-solid fa-shield-halved"></i><h4>Groupes AD restreints</h4><p style="font-size:0.92em;">Accès conditionné à l'appartenance à un groupe AD dédié. Rejet catégorique sinon.</p></div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════ 7. MODÈLE DE SÉCURITÉ ═══════════════════════════ -->
+<div id="slide7" class="step" data-x="-1700" data-y="1800" data-z="-1200" data-rotate-y="-40" data-rotate-x="40">
+    <div class="pill">Sécurité</div>
+    <h2>Modèle de sécurité</h2>
+    <div class="g2" style="margin-top:24px;">
+        <div style="display:flex;flex-direction:column;gap:14px;">
+            <div class="card"><i class="fa-solid fa-layer-group"></i><h4>Double facteur (possession + connaissance)</h4><p style="font-size:0.9em;">Badge personnel (ce que j'ai) + Code PIN confidentiel à 6 ou 8 chiffres (ce que je sais).</p></div>
+            <div class="card"><i class="fa-solid fa-users-gear"></i><h4>Contrôle via Active Directory</h4><p style="font-size:0.9em;">Gestion centralisée des habilitations. Révocation immédiate possible.</p></div>
+            <div class="card"><i class="fa-solid fa-file-shield"></i><h4>Journalisation complète</h4><p style="font-size:0.9em;">Chaque authentification, échec et tentative de bruteforce est tracé avec horodatage.</p></div>
+        </div>
+        <div>
+            <pre style="font-size:0.78em;">{
+  "Horodatage": "2026-04-01T08:14:22Z",
+  "Niveau": "INFO",
+  "Message": "Auth 2FA réussie",
+  "UidBadge": "A1B2C3D4",
+  "Utilisateur": "dupont.julie",
+  "Poste": "POST-SOINS-02"
+}
+{
+  "Horodatage": "2026-04-01T08:21:10Z",
+  "Niveau": "WARN",
+  "Message": "Bruteforce bloqué (5 tentatives)",
+  "UidBadge": "FF1E2D3C",
+  "Utilisateur": "martin.s"
+}</pre>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════ 8. CONTRAINTES TERRAIN ═══════════════════════════ -->
+<div id="slide8" class="step" data-x="-1700" data-y="0" data-z="-1200" data-rotate-y="-40">
+    <div class="pill amber">⚠ Contraintes terrain</div>
+    <h2>Réalités du déploiement hospitalier</h2>
+    <p style="margin:8px 0 20px;">Ces contraintes sont <strong>non-négociables</strong> et doivent guider toute décision d'authentification :</p>
+    <div class="g2" style="gap:18px;">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+            <div class="card amber"><i class="fa-solid fa-mobile-screen-button"></i><h4>Pas de mobile pour tous</h4><p style="font-size:0.9em;">Les mobiles professionnels ne sont pas attribués à l'ensemble du personnel soignant.</p></div>
+            <div class="card amber"><i class="fa-solid fa-coins"></i><h4>Budget limité</h4><p style="font-size:0.9em;">L'acquisition d'un token physique par agent représente un investissement non budgété.</p></div>
+            <div class="card red"><i class="fa-solid fa-plug-circle-xmark"></i><h4>Ports USB désactivés</h4><p style="font-size:0.9em;">Politique SSI de l'établissement : les ports USB sont bloqués par GPO. Seuls les lecteurs NFC approuvés sont autorisés.</p></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+            <div class="card red"><i class="fa-solid fa-id-card-clip"></i><h4>CPS réservée aux médecins</h4><p style="font-size:0.9em;">La Carte de Professionnel de Santé (CPS / e-CPS) n'est pas disponible pour les IDE et le personnel paramédical.</p></div>
+            <div class="card amber"><i class="fa-solid fa-id-badge"></i><h4>Risque de perte / mauvais usage</h4><p style="font-size:0.9em;">Un badge NFC peut être perdu, prêté ou cloné. Ce risque doit être encadré par une procédure.</p></div>
+            <div class="card neutral"><i class="fa-solid fa-users"></i><h4>Diversité des profils</h4><p style="font-size:0.9em;">IDE, AS, administratifs, médecins : chaque profil a des contraintes et équipements différents.</p></div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════ 9. ANALYSE COMPARATIVE ═══════════════════════════ -->
+<div id="slide9" class="step" data-x="-3400" data-y="0" data-z="-2400" data-rotate-y="-80">
+    <div class="pill">Comparatif</div>
+    <h2>Analyse comparative des méthodes 2FA</h2>
+    <table class="cmp-table" style="margin-top:20px;">
+        <thead>
+            <tr>
+                <th>Solution</th>
+                <th>Sécurité</th>
+                <th>Conformité</th>
+                <th>Coût</th>
+                <th>Ergonomie</th>
+                <th>Déployabilité</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>📱 Mobile 2FA (TOTP)</td><td><span class="dot g"></span></td><td><span class="dot g"></span></td><td><span class="dot a"></span></td><td><span class="dot a"></span></td><td><span class="dot r"></span> <span class="tag r">Pas de mobile</span></td></tr>
+            <tr><td>💳 CPS / e-CPS</td><td><span class="dot g"></span></td><td><span class="dot g"></span> <span class="tag g">ANS</span></td><td><span class="dot g"></span></td><td><span class="dot a"></span></td><td><span class="dot r"></span> <span class="tag r">Médecins seulement</span></td></tr>
+            <tr class="highlight"><td>🏷️ <strong>Badge NFC (Pinede)</strong></td><td><span class="dot a"></span></td><td><span class="dot a"></span></td><td><span class="dot g"></span></td><td><span class="dot g"></span> <span class="tag g">Excellent</span></td><td><span class="dot g"></span> <span class="tag g">Déployé</span></td></tr>
+            <tr><td>🔑 USB Token (FIDO2)</td><td><span class="dot g"></span></td><td><span class="dot g"></span></td><td><span class="dot r"></span></td><td><span class="dot a"></span></td><td><span class="dot r"></span> <span class="tag r">USB bloqués</span></td></tr>
+            <tr><td>💳 Smartcard PKI</td><td><span class="dot g"></span></td><td><span class="dot g"></span></td><td><span class="dot r"></span></td><td><span class="dot a"></span></td><td><span class="dot a"></span></td></tr>
+            <tr><td>👁️ Windows Hello</td><td><span class="dot g"></span></td><td><span class="dot a"></span></td><td><span class="dot g"></span></td><td><span class="dot g"></span></td><td><span class="dot a"></span> <span class="tag a">Poste dédié requis</span></td></tr>
+            <tr><td>🗂️ AD seul (login/MDP)</td><td><span class="dot r"></span></td><td><span class="dot r"></span></td><td><span class="dot g"></span></td><td><span class="dot a"></span></td><td><span class="dot g"></span></td></tr>
+        </tbody>
+    </table>
+    <div style="margin-top:14px;font-size:0.85em;color:var(--slate-mid);">
+        <span class="dot g" style="margin-right:4px;"></span>Favorable &nbsp;
+        <span class="dot a" style="margin-right:4px;"></span>Mitigé &nbsp;
+        <span class="dot r" style="margin-right:4px;"></span>Défavorable / Bloquant
+    </div>
+</div>
+
+<!-- ═══════════════════════════ 10. TABLEAU PROS/CONS ═══════════════════════════ -->
+<div id="slide10" class="step" data-x="-3400" data-y="1800" data-z="-2400" data-rotate-y="-80" data-rotate-x="40">
+    <div class="pill">Avantages et Sécurité</div>
+    <h2>NFC Kiosque — Vue d'ensemble</h2>
+    <div class="g2" style="margin-top:22px;gap:24px;">
+        <div>
+            <h3 style="color:var(--green);margin-bottom:14px;"><i class="fa-solid fa-check-circle" style="margin-right:8px;"></i>Avantages Opérationnels</h3>
+            <table class="cmp-table">
+                <thead><tr><th>Critère</th><th>Évaluation</th></tr></thead>
+                <tbody>
+                    <tr><td>Ergonomie utilisateur</td><td><span class="tag g">⭐⭐⭐⭐⭐</span></td></tr>
+                    <tr><td>Coût de déploiement</td><td><span class="tag g">Très faible</span></td></tr>
+                    <tr><td>Rapidité d'accès</td><td><span class="tag g">&lt; 5 secondes</span></td></tr>
+                    <tr><td>Réutilisation badge existant</td><td><span class="tag g">Oui</span></td></tr>
+                    <tr><td>Traçabilité / Journalisation</td><td><span class="tag g">Complète</span></td></tr>
+                    <tr><td>Déployabilité terrain</td><td><span class="tag g">Immédiate</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3 style="color:var(--blue);margin-bottom:14px;"><i class="fa-solid fa-shield-halved" style="margin-right:8px;"></i>Points de Contrôle Maîtrisés</h3>
+            <table class="cmp-table">
+                <thead><tr><th>Critère mitigé</th><th>Solution Technique</th></tr></thead>
+                <tbody>
+                    <tr><td>Vol de mot de passe AD</td><td><span class="tag g">Remplacé par Code PIN (6/8 ch.)</span></td></tr>
+                    <tr><td>Risque clonage badge Mifare</td><td><span class="tag g">Inutile sans le Code PIN</span></td></tr>
+                    <tr><td>Conformité 2FA (ANS)</td><td><span class="tag a">Partielle mais tracée</span></td></tr>
+                    <tr><td>Standalone DMP/HDS</td><td><span class="tag a">Réservé postes partagés</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════ 11. INSIGHT CLÉ ═══════════════════════════ -->
+<div id="slide11" class="step" data-x="-3400" data-y="3600" data-z="-2400" data-rotate-y="-80" data-rotate-x="80">
+    <div class="pill" style="background:var(--slate);">Insight clé</div>
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:85%;text-align:center;">
+        <i class="fa-solid fa-lightbulb" style="font-size:5em;color:var(--amber);margin-bottom:24px;"></i>
+        <h2 style="border:none;font-size:2.6em;display:block;max-width:900px;line-height:1.3;">
+            Aucune solution unique ne convient<br>à l'ensemble des utilisateurs<br>en milieu hospitalier.
+        </h2>
+        <p style="max-width:800px;margin-top:28px;font-size:1.2em;color:var(--slate-mid);">
+            La diversité des profils, des équipements et des contraintes réglementaires impose une <strong>approche hybride et modulaire</strong>.
+        </p>
+        <div class="warn-box" style="max-width:700px;margin-top:28px;text-align:left;">
+            <strong>Conséquence :</strong> Il ne s'agit pas de choisir <em>une</em> solution, mais de <em>composer</em> intelligemment selon les populations cibles.
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════ 12. POSITIONNEMENT NFC ═══════════════════════════ -->
+<div id="slide12" class="step" data-x="-1700" data-y="3600" data-z="-1200" data-rotate-y="-40" data-rotate-x="80">
+    <div class="pill">Positionnement NFC</div>
+    <h2>NFC : un complément, pas un remplacement</h2>
+    <div class="g2" style="margin-top:22px;">
+        <div>
+            <h3 style="color:var(--green);margin-bottom:12px;">✅ Ce que NFC apporte</h3>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+                <div class="card green"><p style="font-size:0.95em;margin:0;"><strong>Amélioration de l'ergonomie</strong> — Connexion fluide en moins de 5 secondes sur poste partagé.</p></div>
+                <div class="card green"><p style="font-size:0.95em;margin:0;"><strong>Couche d'identification rapide</strong> — Le badge identifie l'agent, le Code PIN vient confirmer la présence physique sans exposer de mot de passe complexe.</p></div>
+                <div class="card green"><p style="font-size:0.95em;margin:0;"><strong>Mécanisme contrôlé</strong> — Accès conditionné à un groupe AD restreint + journalisation.</p></div>
+                <div class="card green"><p style="font-size:0.95em;margin:0;"><strong>Complémentaire à l'existant</strong> — S'intègre sans remplacer l'AD ou les solutions conformes.</p></div>
+            </div>
+        </div>
+        <div>
+            <h3 style="color:var(--red);margin-bottom:12px;">❌ Ce que NFC n'est pas</h3>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+                <div class="card red"><p style="font-size:0.95em;margin:0;"><strong>Non conforme en standalone</strong> — Ne remplace pas CPS, e-CPS ou FIDO2 pour l'accès DMP/HDS.</p></div>
+                <div class="card red"><p style="font-size:0.95em;margin:0;"><strong>Non recommandé pour accès DMP</strong> — Le niveau d'assurance du badge Mifare est insuffisant seul.</p></div>
+                <div class="card red"><p style="font-size:0.95em;margin:0;"><strong>Non universel</strong> — Nécessite un lecteur NFC approuvé et un badge préalablement enregistré.</p></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════ 13. USAGE CONTRÔLÉ ═══════════════════════════ -->
+<div id="slide13" class="step" data-x="0" data-y="3600" data-z="0" data-rotate-x="80">
+    <div class="pill">Proposition</div>
+    <h2>Usage contrôlé et encadré du NFC</h2>
+    <div class="g2" style="margin-top:22px;">
+        <div style="display:flex;flex-direction:column;gap:14px;">
+            <div class="card"><i class="fa-solid fa-user-check"></i><h4>Identification (pas authentification seule)</h4><p style="font-size:0.9em;">L'Active Directory fournit l'identité rattachée au NFC. L'accès est conditionné par un Code PIN local (6/8 ch.).</p></div>
+            <div class="card"><i class="fa-solid fa-shield-halved"></i><h4>Périmètre restreint</h4><p style="font-size:0.9em;">Limité aux postes partagés non critiques (soins généraux, logistique, accueil).</p></div>
+            <div class="card"><i class="fa-solid fa-file-lines"></i><h4>Monitoring des logs</h4><p style="font-size:0.9em;">Toutes les authentifications sont journalisées et peuvent être intégrées au SIEM.</p></div>
+        </div>
+        <div>
+            <div class="info-box" style="margin-bottom:16px;">
+                <strong>Périmètre d'application proposé :</strong><br>
+                NFC utilisé sur les postes partagés pour les applications à criticité modérée nécessitant une traçabilité nominative sans accès DMP direct.
+            </div>
+            <div class="success-box">
+                <strong><i class="fa-solid fa-check" style="color:var(--green);"></i> Bénéfice immédiat :</strong><br>
+                Un agent hospitalier s'identifie en posant son badge → gain de temps, traçabilité assurée, sessions anonymes éliminées.
+            </div>
+            <ul style="margin-top:14px;font-size:0.95em;">
+                <li>Procédure de signalement en cas de perte de badge</li>
+                <li>Révocation immédiate dans l'AD</li>
+                <li>Rotation des badges recommandée tous les 2 ans</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════ 14. ARCHITECTURE HYBRIDE ═══════════════════════════ -->
+<div id="slide14" class="step" data-x="1700" data-y="3600" data-z="-1200" data-rotate-y="40" data-rotate-x="80">
+    <div class="pill" style="background:var(--slate);">Architecture stratégique</div>
+    <h2>Modèle d'authentification hybride</h2>
+    <p style="margin:8px 0 20px;">Chaque population bénéficie de la solution adaptée à ses contraintes :</p>
+    <div class="g3" style="margin-top:16px;gap:18px;">
+        <div class="card" style="border-left-color:var(--blue-dark);background:#eff6ff;">
+            <i class="fa-solid fa-user-doctor"></i>
+            <h4>Médecins</h4>
+            <div class="tag b" style="margin:0 0 10px;display:inline-block;">Solution conformante</div>
+            <ul style="font-size:0.88em;margin-left:14px;">
+                <li>CPS / e-CPS</li>
+                <li>Pro Santé Connect</li>
+                <li>Mobile TOTP (e-CPS)</li>
+            </ul>
+            <p style="font-size:0.82em;color:var(--green);margin:6px 0 0;font-weight:600;">✅ Conforme PGSSI-S</p>
+        </div>
+        <div class="card" style="border-left-color:#6366f1;background:#eef2ff;">
+            <i class="fa-solid fa-user-tie"></i>
+            <h4>Personnel administratif</h4>
+            <div class="tag b" style="margin:0 0 10px;display:inline-block;">Identité Windows</div>
+            <ul style="font-size:0.88em;margin-left:14px;">
+                <li>Active Directory</li>
+                <li>Windows Hello (biométrie)</li>
+                <li>Poste nominatif</li>
+            </ul>
+            <p style="font-size:0.82em;color:var(--amber);margin:6px 0 0;font-weight:600;">⚠ Acceptable hors DMP</p>
+        </div>
+        <div class="card" style="border-left-color:var(--blue);background:var(--blue-light);">
+            <i class="fa-solid fa-user-nurse"></i>
+            <h4>Paramédical (IDE / AS)</h4>
+            <div class="tag b" style="margin:0 0 10px;display:inline-block;">NFC Kiosque</div>
+            <ul style="font-size:0.88em;margin-left:14px;">
+                <li>Badge NFC + Code PIN (6/8 ch.)</li>
+                <li>Postes partagés</li>
+                <li>Traçabilité nominative</li>
+            </ul>
+            <p style="font-size:0.82em;color:var(--blue-dark);margin:6px 0 0;font-weight:600;">🏷️ Complémentaire contrôlé</p>
+        </div>
+    </div>
+    <div class="info-box" style="margin-top:18px;">
+        <strong>Philosophie :</strong> NFC n'est pas une solution autonome. Il s'inscrit dans un <strong>écosystème d'authentification gradué</strong> selon le profil et le niveau de criticité des données accédées.
+    </div>
+</div>
+
+<!-- ═══════════════════════════ 15. VALEUR DU PROJET ═══════════════════════════ -->
+<div id="slide15" class="step" data-x="3400" data-y="3600" data-z="-2400" data-rotate-y="80" data-rotate-x="80">
+    <div class="pill green">Valeur</div>
+    <h2>Apports concrets du projet</h2>
+    <div class="g2" style="margin-top:22px;">
+        <div style="display:flex;flex-direction:column;gap:14px;">
+            <div class="card green"><i class="fa-solid fa-code-branch"></i><h4>Innovation technique démontrée</h4><p style="font-size:0.9em;">Développement d'une solution sur-mesure en .NET 8, prouvant la capacité d'innovation interne.</p></div>
+            <div class="card green"><i class="fa-solid fa-gauge-high"></i><h4>Réduction de la friction</h4><p style="font-size:0.9em;">Temps de connexion &lt; 5s. Fin des post-its avec mots de passe ! Un PIN court (6/8 ch.) suffit.</p></div>
+            <div class="card green"><i class="fa-solid fa-chart-line"></i><h4>Traçabilité immédiate</h4><p style="font-size:0.9em;">100% d'imputabilité nominative sur les postes partagés dès le premier jour de déploiement.</p></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+            <div class="card green"><i class="fa-solid fa-coins"></i><h4>Retour sur investissement rapide</h4><p style="font-size:0.9em;">Réutilisation des badges existants. Aucun achat matériel supplémentaire pour les postes cibles.</p></div>
+            <div class="card green"><i class="fa-solid fa-road"></i><h4>Tremplin IAM</h4><p style="font-size:0.9em;">Base technique pour une évolution vers une IAM complète (SSO, MFA avancé, fédération d'identité).</p></div>
+            <div class="card green"><i class="fa-solid fa-handshake"></i><h4>Approche terrain réaliste</h4><p style="font-size:0.9em;">Conçue avec les contraintes réelles du terrain, pas depuis un cahier des charges théorique.</p></div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════ 16. RISQUES ═══════════════════════════ -->
+<div id="slide16" class="step" data-x="3400" data-y="5400" data-z="-2400" data-rotate-y="80" data-rotate-x="120">
+    <div class="pill green">Sécurisation et Maîtrise</div>
+    <h2>Comment le Code PIN sécurise l'environnement</h2>
+    <p style="margin:8px 0 18px;">Les limites inhérentes au NFC sont totalement neutralisées par la conception de la solution :</p>
+    <div class="g3" style="gap:18px;">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+            <div class="success-box">
+                <i class="fa-solid fa-shield-halved" style="color:var(--green);font-size:1.6em;display:block;margin-bottom:8px;"></i>
+                <h4>Mot de passe AD masqué</h4>
+                <p style="font-size:0.88em;margin:0;">Puisque l'agent saisit un Code PIN (6 ou 8 chiffres) et non son mot de passe central complet, les regards indiscrets ne compromettent pas l'identité centrale Active Directory de l'établissement.</p>
+            </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+            <div class="success-box">
+                <i class="fa-solid fa-copy" style="color:var(--green);font-size:1.6em;display:block;margin-bottom:8px;"></i>
+                <h4>Risque de clonage neutralisé</h4>
+                <p style="font-size:0.88em;margin:0;">Un badge physique perdu, prêté, ou volé est entièrement inutile et inexploitable s'il n'est pas accompagné du Code PIN numérique connu seul de l'agent soignant.</p>
+            </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+            <div class="success-box">
+                <i class="fa-solid fa-list-check" style="color:var(--green);font-size:1.6em;display:block;margin-bottom:8px;"></i>
+                <h4>Contrôle Central & Réactivité</h4>
+                <p style="font-size:0.88em;margin:0;">Le badge reste couplé à la base Active Directory : en cas de départ d'un collaborateur, la suspension AD désactive instantanément ses droits NFC.</p>
+            </div>
+        </div>
+    </div>
+    <div class="info-box" style="margin-top:18px;">
+        <strong>Bilan :</strong> La combinaison du confort NFC avec l'exigence d'un Code PIN transforme une simple lecture de badge en un processus fort, réduisant significativement la surface d'attaque en salle de soins.
+    </div>
+</div>
+
+<!-- ═══════════════════════════ 17. RECOMMANDATION ═══════════════════════════ -->
+<div id="slide17" class="step" data-x="1700" data-y="5400" data-z="-1200" data-rotate-y="40" data-rotate-x="120">
+    <div class="pill" style="background:var(--slate);">Recommandation</div>
+    <h2>Recommandation DSI</h2>
+    <div class="g2" style="margin-top:22px;align-items:start;">
+        <div>
+            <div class="danger-box" style="margin-bottom:18px;">
+                <h4 style="color:var(--red);margin-bottom:6px;">❌ Ne pas faire</h4>
+                <ul style="font-size:0.92em;margin-left:16px;margin-bottom:0;">
+                    <li>Remplacer les solutions conformes existantes (CPS, e-CPS)</li>
+                    <li>Déployer NFC sans encadrement DSI</li>
+                    <li>Utiliser NFC comme seul facteur d'authentification</li>
+                    <li>Étendre à des accès DMP/HDS sans validation ANS</li>
+                </ul>
+            </div>
+            <div class="success-box">
+                <h4 style="color:var(--green);margin-bottom:6px;">✅ Faire</h4>
+                <ul style="font-size:0.92em;margin-left:16px;margin-bottom:0;">
+                    <li>Intégrer NFC comme <strong>couche complémentaire</strong> sur postes partagés</li>
+                    <li>Utiliser un Code PIN local (6/8 ch.) comme secret d'authentification rapide</li>
+                    <li>Restreindre via groupe AD + journalisation</li>
+                    <li>Piloter sur un service avant généralisation</li>
+                </ul>
+            </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;">
+            <div style="background:var(--blue-dark);color:#fff;border-radius:16px;padding:32px;text-align:center;">
+                <i class="fa-solid fa-sitemap" style="font-size:3.5em;margin-bottom:16px;color:#7dd3fc;display:block;"></i>
+                <h3 style="color:#fff;margin-bottom:12px;">Intégrer NFC</h3>
+                <p style="color:#bae6fd;font-size:0.95em;margin:0;">comme couche complémentaire dans un modèle d'authentification hybride et gradué</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════ 18. CONCLUSION ═══════════════════════════ -->
+<div id="slide18" class="step" data-x="0" data-y="0" data-z="-3000" data-scale="1">
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;">
+        <div class="pill green" style="font-size:1em;margin-bottom:24px;">Conclusion</div>
+        <i class="fa-solid fa-hospital-user" style="font-size:4em;color:var(--blue);margin-bottom:24px;display:block;"></i>
+        <h2 style="border:none;display:block;font-size:2.4em;max-width:900px;line-height:1.3;">
+            "L'objectif n'est pas de remplacer les solutions existantes,<br>
+            <span style="color:var(--blue);">mais d'apporter une réponse adaptée aux contraintes du terrain.</span>"
+        </h2>
+        <div class="g3" style="margin-top:36px;max-width:1000px;gap:24px;">
+            <div class="card green" style="text-align:center;">
+                <i class="fa-solid fa-shield-halved"></i>
+                <h4>Sécurité</h4>
+                <p style="font-size:0.88em;">Traçabilité nominative sur tous les postes partagés</p>
+            </div>
+            <div class="card" style="text-align:center;">
+                <i class="fa-solid fa-bolt"></i>
+                <h4>Efficacité</h4>
+                <p style="font-size:0.88em;">Connexion en &lt;5s, zéro friction pour le soignant</p>
+            </div>
+            <div class="card amber" style="text-align:center;">
+                <i class="fa-solid fa-scale-balanced"></i>
+                <h4>Réalisme</h4>
+                <p style="font-size:0.88em;">Solution hybride consciente de ses limites réglementaires</p>
+            </div>
+        </div>
+        <p style="margin-top:32px;font-size:1em;color:var(--slate-mid);">Direction des Systèmes d'Information · Clinique La Pinède · 2026</p>
+    </div>
+</div>
+
+<!-- OVERVIEW GLOBAL -->
+<div id="overview" class="step" data-x="0" data-y="1800" data-z="7000" data-scale="2.2" data-rotate-x="20">
+    <div style="text-align:center;padding-top:260px;">
+        <h1 style="font-size:6em;color:rgba(255,255,255,0.5);text-shadow:0 2px 20px rgba(0,0,0,0.3);">Merci</h1>
+    </div>
+</div>
+
+</div>
+
+<!-- SLIDE COUNTER -->
+<div id="slide-counter" class="slide-counter">
+    <div class="pill-wrap">
+        <span class="current" id="current-slide">1</span>
+        <span class="slash">/</span>
+        <span class="total">18</span>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/impress/impress.js@2.0.0/js/impress.js"></script>
+<script>
+    impress().init();
+
+    // Slide Number Animation Logic
+    const counterDiv = document.getElementById("slide-counter");
+    const currentSpan = document.getElementById("current-slide");
+    
+    document.addEventListener("impress:stepenter", function (event) {
+        const stepId = event.target.id;
+        if (stepId.startsWith("slide")) {
+            const slideNum = stepId.replace("slide", "");
+            
+            // Briefly hide to trigger the pop-in animation
+            counterDiv.classList.remove("visible");
+            
+            setTimeout(() => {
+                currentSpan.innerText = slideNum;
+                counterDiv.classList.add("visible");
+            }, 100); // Wait 100ms so CSS registers the state reset
+        } else if (stepId === "overview") {
+            counterDiv.classList.remove("visible"); // Hide on overview
+        }
+    });
+
+    // Show initial slide number on load
+    setTimeout(() => {
+        const active = document.querySelector(".step.active");
+        if(active && active.id.startsWith("slide")) {
+            counterDiv.classList.add("visible");
+        }
+    }, 600);
+</script>
+</body>
+</html>
