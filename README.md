@@ -1,6 +1,30 @@
-# Nexorsys-HoPEN (Hospital Patient Environment Network)
+# Nexorsys-HoPEN
 
 Welcome to the **Nexorsys-HoPEN** unified workspace. This repository contains the complete enterprise suite for identity management, NFC-based kiosk authentication, and workstation management.
+
+## 📖 About the Project
+
+**Nexorsys-HoPEN** is an advanced authentication and fleet management platform engineered specifically to meet the stringent security and operational requirements of modern healthcare environments. The platform delivers seamless, frictionless access to medical workstations via NFC badges while enforcing zero-trust principles and robust audit trails behind the scenes. 
+
+By unifying physical badge access, Windows credential provisioning, and centralized identity administration, the project ensures that healthcare professionals can authenticate quickly and securely, allowing them to focus on patient care rather than complex login procedures.
+
+## 🏥 Context & Compliance
+
+This solution is designed in direct alignment with major French national healthcare digitization and security programs:
+
+### HoPEN (Hôpital Numérique Ouvert sur son Environnement)
+The HoPEN program is a national initiative in France aimed at modernizing hospital information systems (HIS). It focuses on improving the quality of care, facilitating information sharing, and ensuring that hospitals are digitally equipped to interact securely with their surrounding healthcare ecosystem. **Nexorsys-HoPEN** directly supports these goals by providing the secure authentication foundation necessary for modern, interoperable digital health tools.
+
+### Programme CaRE (Cybersécurité, Accélération et Résilience des Établissements)
+The CaRE program is the French national action plan dedicated to strengthening the cybersecurity of healthcare institutions. It mandates strict controls on access, identity verification, and traceability to protect sensitive patient data against cyber threats. **Nexorsys** inherently enforces CaRE principles through its hardware-bound tokens, risk-based authentication, and comprehensive audit logging, ensuring that hospital networks remain resilient and compliant.
+
+## 🏢 About NexorSys
+
+**NexorSys** is an innovative technology provider specializing in highly secure identity and access management (IAM) solutions tailored for complex, high-stakes environments like healthcare. Our mission is to seamlessly bridge the gap between rigorous cybersecurity compliance and daily operational efficiency.
+
+For more information about our products, services, and vision, please visit us at **[nexorsys.fr](https://nexorsys.fr)**.
+
+---
 
 ## 📂 Repository Structure
 
